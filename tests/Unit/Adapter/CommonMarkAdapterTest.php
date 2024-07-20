@@ -3,7 +3,11 @@
 namespace Dantleech\Exedoc\Tests\Unit\Adapter;
 
 use Dantleech\Exedoc\Adapter\CommonMarkAdapter;
+use Dantleech\Exedoc\Block\CreateFileBlock;
 use Dantleech\Exedoc\Model\Block;
+use Dantleech\Exedoc\Model\Block\Section;
+use Dantleech\Exedoc\Model\Block\SectionBlock;
+use Dantleech\Exedoc\Model\Block\TextBlock;
 use PHPUnit\Framework\TestCase;
 
 class CommonMarkAdapterTest extends TestCase
@@ -25,5 +29,25 @@ class CommonMarkAdapterTest extends TestCase
         Hello ![foobar](Hello)
         MARKDOWN);
         self::assertInstanceOf(Block::class, $article);
+
+        self::assertEquals(
+            new SectionBlock('Root', [
+                new SectionBlock('Hello World', []),
+                new CreateFileBlock('src/foobar.php', language: 'php', content: <<<PHP
+                <?php
+
+                echo "hello world";
+
+                PHP),
+                new TextBlock(<<<MARKDOWN
+                - Foobar
+                - Barfoo
+                MARKDOWN),
+                new TextBlock(<<<MARKDOWN
+                Hello ![foobar](Hello)
+                MARKDOWN),
+            ]),
+            $article
+        );
     }
 }

@@ -14,6 +14,7 @@ use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\Node\Block\AbstractBlock;
 use League\CommonMark\Node\Block\Document;
+use League\CommonMark\Node\Inline\AbstractStringContainer;
 use League\CommonMark\Node\Inline\Text as LeagueText;
 use League\CommonMark\Node\Node;
 use League\CommonMark\Parser\MarkdownParser;
@@ -35,27 +36,28 @@ final class CommonMarkAdapter
 
     public function parse(string $markdown): Block
     {
-        $ast = $this->markdownParser->parse($markdown);
+        $document = $this->markdownParser->parse($markdown);
+        $blocks = [];
+        foreach ($document->children() as $child) {
+            $block = $this->traverse($child, $markdown);
+            $blocks[] = $block;
+        }
+        return new SectionBlock('Root', $blocks);
 
-        return $this->traverse($ast, $markdown);
+        return $this->traverse($document, $markdown);
     }
 
     private function traverse(Node $node, string &$markdown): Block
     {
-        if ($node instanceof Document) {
-            $blocks = [];
-            foreach ($node->children() as $child) {
-                $blocks[] = $this->traverse($child, $markdown);
-            }
-            return new SectionBlock('Root', $blocks);
-        }
-
         if ($node instanceof Heading) {
-            $blocks = [];
+            $text = [];
             foreach ($node->children() as $child) {
-                $blocks[] = $this->traverse($child, $markdown);
+                if (!$child instanceof AbstractStringContainer) {
+                    continue;
+                }
+                $text[] = $child->getLiteral();
             }
-            return new SectionBlock('Root', $blocks);
+            return new SectionBlock(implode('', $text), []);
         }
 
         if ($node instanceof LeagueText) {
@@ -89,7 +91,7 @@ final class CommonMarkAdapter
             return '';
         }
         $lines = explode("\n", $markdown);
-        return implode("\n", array_slice($lines, $start - 1, $end - $start + 1));
+        return trim(implode("\n", array_slice($lines, $start - 1, $end - $start + 1)));
     }
 
     private function parseDirective(FencedCode $node, string $markdown): Block
