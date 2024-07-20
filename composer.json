@@ -1,0 +1,27 @@
+{
+    "name": "dantleech/exedoc",
+    "autoload": {
+        "psr-4": {
+            "Dantleech\\Exedoc\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dantleech\\Exedoc\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniel Leech",
+            "email": "daniel@dantleech.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "symfony/var-dumper": "^7.1"
+    },
+    "require": {
+        "symfony/console": "^7.1",
+        "league/commonmark": "^2.4"
+    }
+}
