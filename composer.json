@@ -24,6 +24,7 @@
     },
     "require": {
         "symfony/console": "^7.1",
-        "league/commonmark": "^2.4"
+        "league/commonmark": "^2.4",
+        "symfony/finder": "^7.1"
     }
 }

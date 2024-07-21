@@ -3,10 +3,13 @@
 namespace Dantleech\Exedoc\Adapter;
 
 use Dantleech\Exedoc\Block\CreateFileBlock;
+use Dantleech\Exedoc\Model\Article;
+use Dantleech\Exedoc\Model\Parser;
 use Dantleech\Exedoc\Model\Block;
 use Dantleech\Exedoc\Model\BlockFactory;
 use Dantleech\Exedoc\Model\Block\SectionBlock;
 use Dantleech\Exedoc\Model\Block\TextBlock;
+use Dantleech\Exedoc\Model\Parser\SyntaxError;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -19,7 +22,7 @@ use League\CommonMark\Node\Node;
 use League\CommonMark\Parser\MarkdownParser;
 use RuntimeException;
 
-final class CommonMarkAdapter
+final class CommonMarkAdapter implements Parser
 {
     public function __construct(private MarkdownParser $markdownParser, private BlockFactory $factory)
     {
@@ -33,7 +36,7 @@ final class CommonMarkAdapter
         return new self(new MarkdownParser($environment), new ReflectionBlockFactory());
     }
 
-    public function parse(string $markdown): Block
+    public function parse(string $markdown): Article
     {
         $document = $this->markdownParser->parse($markdown);
         $blocks = [];
@@ -41,9 +44,7 @@ final class CommonMarkAdapter
             $block = $this->traverse($child, $markdown);
             $blocks[] = $block;
         }
-        return new SectionBlock('Root', $blocks);
-
-        return $this->traverse($document, $markdown);
+        return new Article($blocks);
     }
 
     private function traverse(Node $node, string &$markdown): Block
@@ -108,7 +109,7 @@ final class CommonMarkAdapter
 
         return match($task) {
             'createFile' => $this->factory->create(CreateFileBlock::class, $args),
-            default => throw new RuntimeException(sprintf(
+            default => throw new SyntaxError($markdown, $node->getStartLine(), sprintf(
                 'Do not know how to task: %s',
                 $task
             )),
