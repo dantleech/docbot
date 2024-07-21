@@ -18,7 +18,9 @@
     ],
     "require-dev": {
         "phpunit/phpunit": "^10.0",
-        "symfony/var-dumper": "^7.1"
+        "symfony/var-dumper": "^7.1",
+        "friendsofphp/php-cs-fixer": "^3.59",
+        "phpstan/phpstan": "^1.11"
     },
     "require": {
         "symfony/console": "^7.1",

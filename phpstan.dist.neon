@@ -1,0 +1,11 @@
+parameters:
+    level: max
+    paths:
+        - bin/
+        - config/
+        - public/
+        - lib/
+        - src/
+        - tests/
+    symfony:
+        consoleApplicationLoader: tests/phpstan-console.php

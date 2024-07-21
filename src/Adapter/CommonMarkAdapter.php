@@ -13,7 +13,6 @@ use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
 use League\CommonMark\Extension\CommonMark\Node\Block\Heading;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\Node\Block\AbstractBlock;
-use League\CommonMark\Node\Block\Document;
 use League\CommonMark\Node\Inline\AbstractStringContainer;
 use League\CommonMark\Node\Inline\Text as LeagueText;
 use League\CommonMark\Node\Node;

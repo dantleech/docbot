@@ -1,7 +1,4 @@
-/.phpbench
-/.phpunit.result.cache
-/vendor
-/composer.lock
-/.phpunit.cache
+/vendor/
+.phpunit.result.cache
+tests/Workspace
 /.php-cs-fixer.cache
-/tests/Workspace
