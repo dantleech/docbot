@@ -3,11 +3,14 @@
 namespace Dantleech\Exedoc;
 
 use Dantleech\Exedoc\Adapter\CommonMarkAdapter;
+use Dantleech\Exedoc\Adapter\ReflectionBlockFactory;
+use Dantleech\Exedoc\Block\CreateFileBlock;
+use Dantleech\Exedoc\Block\ShellBlock;
 use Dantleech\Exedoc\Console\ExecuteCommand;
 use Dantleech\Exedoc\Model\ArticleFinder;
+use Dantleech\Exedoc\Model\BlockFactory;
 use Dantleech\Exedoc\Model\Parser;
 use Symfony\Component\Console\Application;
-use Symfony\Component\Finder\Finder;
 
 final class Exedoc
 {
@@ -17,7 +20,7 @@ final class Exedoc
     public function application(): Application
     {
         $app = new Application('exedoc');
-        $app->addCommands([ 
+        $app->addCommands([
             $this->commandExecute(),
         ]);
 
@@ -36,6 +39,14 @@ final class Exedoc
 
     private function parser(): Parser
     {
-        return CommonMarkAdapter::create();
+        return CommonMarkAdapter::create($this->directiveFactory());
+    }
+
+    private function directiveFactory(): BlockFactory
+    {
+        return new ReflectionBlockFactory([
+            'create' => CreateFileBlock::class,
+            'shell' => ShellBlock::class,
+        ]);
     }
 }

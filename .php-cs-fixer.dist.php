@@ -5,7 +5,6 @@ use PhpCsFixer\Finder;
 
 $finder = Finder::create()
     ->in('src')
-    ->in('lib')
     ->in('tests')
     ->exclude([
         'Workspace',

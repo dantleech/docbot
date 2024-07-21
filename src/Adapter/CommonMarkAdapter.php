@@ -2,14 +2,12 @@
 
 namespace Dantleech\Exedoc\Adapter;
 
-use Dantleech\Exedoc\Block\CreateFileBlock;
 use Dantleech\Exedoc\Model\Article;
 use Dantleech\Exedoc\Model\Parser;
 use Dantleech\Exedoc\Model\Block;
 use Dantleech\Exedoc\Model\BlockFactory;
 use Dantleech\Exedoc\Model\Block\SectionBlock;
 use Dantleech\Exedoc\Model\Block\TextBlock;
-use Dantleech\Exedoc\Model\Parser\SyntaxError;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\CommonMark\Node\Block\FencedCode;
@@ -28,12 +26,12 @@ final class CommonMarkAdapter implements Parser
     {
     }
 
-    public static function create(): self
+    public static function create(?ReflectionBlockFactory $factory = null): self
     {
         $environment = new Environment();
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
-        return new self(new MarkdownParser($environment), new ReflectionBlockFactory());
+        return new self(new MarkdownParser($environment), $factory ?: new ReflectionBlockFactory());
     }
 
     public function parse(string $markdown): Article
@@ -67,7 +65,7 @@ final class CommonMarkAdapter implements Parser
         if ($node instanceof FencedCode) {
             return $this->parseDirective($node, $markdown);
         }
-        
+
         // try and handle anything else (e.g. tables, lists etc) as a text block
         if ($node instanceof AbstractBlock) {
             return new TextBlock($this->grabLineRange($markdown, $node));
@@ -103,16 +101,10 @@ final class CommonMarkAdapter implements Parser
 
         $content = $node->getLiteral();
         $language = array_shift($args);
-        $task = array_shift($args);
+        $directive = array_shift($args);
         $args['language'] = $language;
         $args['content'] = $content;
 
-        return match($task) {
-            'createFile' => $this->factory->create(CreateFileBlock::class, $args),
-            default => throw new SyntaxError($markdown, $node->getStartLine(), sprintf(
-                'Do not know how to task: %s',
-                $task
-            )),
-        };
+        return $this->factory->fromDirective($directive, $args);
     }
 }

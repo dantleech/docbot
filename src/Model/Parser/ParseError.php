@@ -2,11 +2,10 @@
 
 namespace Dantleech\Exedoc\Model\Parser;
 
-use Exception;
 use RuntimeException;
 use Throwable;
 
-class ParseError extends RuntimeException
+final class ParseError extends RuntimeException
 {
     public function __construct(public string $filename, Throwable $error)
     {

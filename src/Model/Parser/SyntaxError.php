@@ -10,8 +10,7 @@ final class SyntaxError extends RuntimeException
         public string $contents,
         public int $startLine,
         string $message
-    )
-    {
+    ) {
         parent::__construct(sprintf('Syntax error on line %d: %s', $startLine, $message));
     }
 }

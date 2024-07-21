@@ -5,7 +5,6 @@ namespace Dantleech\Exedoc\Model;
 use Dantleech\Exedoc\Model\Parser\ParseError;
 use Dantleech\Exedoc\Model\Parser\SyntaxError;
 use Symfony\Component\Finder\Finder;
-use Throwable;
 
 final class ArticleFinder
 {

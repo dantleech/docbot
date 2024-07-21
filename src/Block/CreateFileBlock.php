@@ -10,7 +10,6 @@ final readonly class CreateFileBlock implements Block
         public string $path,
         public string $language,
         public string $content,
-    )
-    {
+    ) {
     }
 }

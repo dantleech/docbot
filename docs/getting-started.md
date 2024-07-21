@@ -6,7 +6,7 @@ Welcome to the Exedoc tutorial.
 First of all let's create a new directory and make it our current working
 directory:
 
-```shell exec exitCode=0, chdir demo
+```shell shell exitCode=0
 mkdir -p demo
 ```
 

@@ -3,14 +3,15 @@
 namespace Dantleech\Exedoc\Tests\Unit\Adapter;
 
 use Dantleech\Exedoc\Adapter\ReflectionBlockFactory;
+use Dantleech\Exedoc\Tests\Unit\Adapter\Block\CastBlock;
 use Dantleech\Exedoc\Tests\Unit\Adapter\Block\TestBlock;
 use PHPUnit\Framework\TestCase;
 
-class ReflectionBlockFactoryTest extends TestCase
+final class ReflectionBlockFactoryTest extends TestCase
 {
     public function testCreateBlock(): void
     {
-        $block = (new ReflectionBlockFactory())->create(TestBlock::class, [ 
+        $block = $this->factory()->create(TestBlock::class, [
             'content' => 'type',
             'type1',
             'language' => 'php',
@@ -26,10 +27,16 @@ class ReflectionBlockFactoryTest extends TestCase
         ), $block);
     }
 
+    public function testCast(): void
+    {
+        $block = $this->factory()->create(CastBlock::class, ['12']);
+        self::assertEquals(12, $block->code);
+    }
+
     public function testNotEnoughArguments(): void
     {
         $this->expectExceptionMessage('Parameter `content` is required');
-        $block = (new ReflectionBlockFactory())->create(TestBlock::class, [ 
+        $block = $this->factory()->create(TestBlock::class, [
             'type1',
             'language' => 'php',
             true,
@@ -38,7 +45,7 @@ class ReflectionBlockFactoryTest extends TestCase
 
     public function testOptional(): void
     {
-        $block = (new ReflectionBlockFactory())->create(TestBlock::class, [ 
+        $block = $this->factory()->create(TestBlock::class, [
             'type1',
             true,
             'content',
@@ -46,5 +53,10 @@ class ReflectionBlockFactoryTest extends TestCase
         self::assertInstanceOf(TestBlock::class, $block);
         self::assertEquals('content', $block->content);
         self::assertEquals('php', $block->language);
+    }
+
+    private function factory(): ReflectionBlockFactory
+    {
+        return (new ReflectionBlockFactory());
     }
 }

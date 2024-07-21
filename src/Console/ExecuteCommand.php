@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'execute', description: 'Execute docs')]
-class ExecuteCommand extends Command
+final class ExecuteCommand extends Command
 {
     public function __construct(private ArticleFinder $finder)
     {

@@ -5,6 +5,7 @@ namespace Dantleech\Exedoc\Model;
 use ArrayIterator;
 use IteratorAggregate;
 use Traversable;
+
 /**
  * @implements IteratorAggregate<Article>
  */

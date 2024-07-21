@@ -2,7 +2,7 @@
 
 namespace Dantleech\Exedoc\Model;
 
-class Article implements  Block
+final class Article implements Block
 {
     /**
      * @param Block[] $blocks
