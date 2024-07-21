@@ -12,4 +12,13 @@ final readonly class CreateFileBlock implements Block
         public string $content,
     ) {
     }
+
+    public function describe(): string
+    {
+        return sprintf(
+            'Creating %s file at "%s"',
+            $this->language,
+            $this->path
+        );
+    }
 }

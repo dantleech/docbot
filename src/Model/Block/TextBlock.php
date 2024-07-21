@@ -10,4 +10,9 @@ final class TextBlock implements Block
     {
     }
 
+    public function describe(): string
+    {
+        return $this->text;
+    }
+
 }

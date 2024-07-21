@@ -15,7 +15,6 @@ final class ExecuteCommand extends Command
 {
     public function __construct(private ArticleFinder $finder)
     {
-
         parent::__construct();
     }
 
@@ -38,7 +37,13 @@ final class ExecuteCommand extends Command
             ));
         }
 
-        $docs = $this->finder->findInPath($path);
+        $articles = $this->finder->findInPath($path);
+
+        foreach ($articles as $article) {
+            foreach ($article->blocks as $block) {
+                $output->writeln('<comment>==> </>' . $block->describe());
+            }
+        }
 
         return 0;
     }

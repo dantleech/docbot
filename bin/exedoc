@@ -1,10 +1,8 @@
 #!/usr/bin/env php
 <?php
 
-use Dantleech\Exedoc\Console\ExecuteCommand;
 use Dantleech\Exedoc\Exedoc;
-use Symfony\Component\Console\Application;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-(new Exedoc(getcwd()))->application()->run();
+(new Exedoc((string)getcwd()))->application()->run();

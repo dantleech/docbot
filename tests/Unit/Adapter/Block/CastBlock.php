@@ -12,4 +12,9 @@ final class CastBlock implements Block
     public function __construct(public int $code)
     {
     }
+
+    public function describe(): string
+    {
+        return '';
+    }
 }

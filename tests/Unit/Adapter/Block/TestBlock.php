@@ -13,4 +13,9 @@ final class TestBlock implements Block
         public string $language = 'php',
     ) {
     }
+
+    public function describe(): string
+    {
+        return 'test';
+    }
 }

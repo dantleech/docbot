@@ -10,4 +10,9 @@ final class Article implements Block
     public function __construct(public array $blocks)
     {
     }
+
+    public function describe(): string
+    {
+        return sprintf('article with %d steps', count($this->blocks));
+    }
 }

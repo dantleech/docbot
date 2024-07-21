@@ -11,5 +11,6 @@ final class ExecuteCommandTest extends TestCase
     {
         $process = Process::fromShellCommandline('bin/exedoc execute docs', __DIR__ . '/../../..');
         $process->mustRun();
+        $this->addToAssertionCount(1);
     }
 }
