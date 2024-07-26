@@ -41,3 +41,9 @@ $ {{ block.content }}
 {{ render_block(block) }}
 {%- endfor -%}
 {% endblock %}
+
+{% block core_show_file %}
+``````{{ block.language }}
+{{ data.contents }}
+``````
+{% endblock %}

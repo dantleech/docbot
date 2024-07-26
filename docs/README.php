@@ -4,12 +4,16 @@ use DTL\Docbot\Article\Article;
 use DTL\Docbot\Extension\Core\Block\CreateFileBlock;
 use DTL\Docbot\Extension\Core\Block\SectionBlock;
 use DTL\Docbot\Extension\Core\Block\ShellBlock;
+use DTL\Docbot\Extension\Core\Block\ShowFileBlock;
 
 return Article::create('../README', 'DTL Docbot', [
     <<<TEXT
     Docbot generates up-to-date and accurate documentation by **executing** the
     documentation.
     TEXT,
+    new SectionBlock('Status', [
+        'I\'ve hacked this together in 8 hours.',
+    ]),
     new SectionBlock('How it works', [
         <<<TEXT
         Essentially:
@@ -54,5 +58,10 @@ return Article::create('../README', 'DTL Docbot', [
         'Now let\'s run generate some docs!',
         new ShellBlock('../bin/docbot execute docs'),
         'We can view the output:',
+        new ShowFileBlock('docs/hello_world.md', 'text'),
+    ]),
+    new SectionBlock('Inception', [
+        'Oh no! We are code inception 😾. Look at the original script for this README:',
+        new ShowFileBlock('../docs/README.php', 'php'),
     ]),
 ]);

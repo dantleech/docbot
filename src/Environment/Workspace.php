@@ -54,4 +54,30 @@ final class Workspace
         }
         $this->util->mkdir($this->workingDirectory);
     }
+
+    public function exists(string $path): bool
+    {
+        return file_exists($this->path($path));
+    }
+
+    public function getContents(string $path): string
+    {
+        if (!$this->exists($path)) {
+            throw new RuntimeException(sprintf(
+                'File does not exist at path: %s',
+                $path
+            ));
+        }
+
+        $contents = file_get_contents($this->path($path));
+
+        if (false === $contents) {
+            throw new RuntimeException(sprintf(
+                'Could not read file contents: %s',
+                $path
+            ));
+        }
+
+        return $contents;
+    }
 }

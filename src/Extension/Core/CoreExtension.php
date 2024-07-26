@@ -13,6 +13,7 @@ use DTL\Docbot\Extension\Core\Block\AssertContainsExecutor;
 use DTL\Docbot\Extension\Core\Block\CreateFileExecutor;
 use DTL\Docbot\Extension\Core\Block\SectionExecutor;
 use DTL\Docbot\Extension\Core\Block\ShellBlockExecutor;
+use DTL\Docbot\Extension\Core\Block\ShowFileExecutor;
 use DTL\Docbot\Extension\Core\Block\TextBlockExecutor;
 use DTL\Docbot\Extension\Core\Console\ExecuteCommand;
 use DTL\Docbot\Extension\Core\Renderer\TwigBlockRenderer;
@@ -168,6 +169,11 @@ final class CoreExtension implements Extension
         ]);
         $container->register(SectionExecutor::class, function (Container $container) {
             return new SectionExecutor();
+        }, [
+            self::TAG_BLOCK_EXECUTOR => [],
+        ]);
+        $container->register(ShowFileExecutor::class, function (Container $container) {
+            return new ShowFileExecutor($container->get(Workspace::class));
         }, [
             self::TAG_BLOCK_EXECUTOR => [],
         ]);
