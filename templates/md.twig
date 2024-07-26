@@ -23,10 +23,21 @@ Create the following file at `{{ block.path }}`:
 {% block core_shell %}
 ```shell
 $ {{ block.content }}
-{{ data.stdout }}
+{% if data.stdout %}{{ data.stdout }}{% endif %}
+{% if data.stderr %}{{ data.stderr }}{% endif %}
 ```
 {% endblock %}
 
 {% block core_text %}
 {{ block.text }}
+{% endblock %}
+
+{% block core_section %}
+{{ block.title }}
+{% for i in range(1,block.title|length) -%}-{% endfor %}
+
+
+{% for block in block.blocks %}
+{{ render_block(block) }}
+{%- endfor -%}
 {% endblock %}

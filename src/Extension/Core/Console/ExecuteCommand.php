@@ -4,6 +4,7 @@ namespace DTL\Docbot\Extension\Core\Console;
 
 use DTL\Docbot\Article\ArticleFinder;
 use DTL\Docbot\Article\ArticleRenderer;
+use DTL\Docbot\Article\ArticleWriter;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Environment\Workspace;
 use DTL\Docbot\Extension\Core\CoreExtension;
@@ -23,6 +24,7 @@ final class ExecuteCommand extends Command
         private MainBlockExecutor $executor,
         private ArticleRenderer $renderer,
         private Workspace $workspace,
+        private ArticleWriter $writer,
     ) {
         parent::__construct();
     }
@@ -64,12 +66,16 @@ final class ExecuteCommand extends Command
                 $err->writeln('<comment>=> </>' . $block->describe());
                 $this->executor->execute($block);
             }
+        }
 
-            $err->writeln('');
-            $err->writeln('Rendering article:');
-            $err->writeln('');
+        $err->writeln('');
+        $err->writeln('Rendering article:');
+        $err->writeln('');
 
-            $output->writeln($this->renderer->render($article)->contents);
+        foreach ($articles as $article) {
+            $rendered = $this->renderer->render($article);
+            $result = $this->writer->write($rendered);
+            $err->writeln(sprintf('Written %d bytes to %s', $result->bytesWritten, $result->path));
         }
 
         return 0;

@@ -24,7 +24,7 @@ final class TwigRenderer implements ArticleRenderer
 
         return RenderedArticle::from(sprintf(
             '%s.%s',
-            $article->name(),
+            $article->id,
             $this->format
         ), $content);
     }

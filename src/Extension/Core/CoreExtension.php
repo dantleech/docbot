@@ -4,13 +4,14 @@ namespace DTL\Docbot\Extension\Core;
 
 use DTL\Docbot\Article\ArticleFinder;
 use DTL\Docbot\Article\ArticleRenderer;
+use DTL\Docbot\Article\ArticleWriter;
 use DTL\Docbot\Article\BlockDataBuffer;
 use DTL\Docbot\Article\Block\BlockExecutor;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Environment\Workspace;
-use DTL\Docbot\Extension\Core\Block\AssertContainsBlock;
 use DTL\Docbot\Extension\Core\Block\AssertContainsExecutor;
 use DTL\Docbot\Extension\Core\Block\CreateFileExecutor;
+use DTL\Docbot\Extension\Core\Block\SectionExecutor;
 use DTL\Docbot\Extension\Core\Block\ShellBlockExecutor;
 use DTL\Docbot\Extension\Core\Block\TextBlockExecutor;
 use DTL\Docbot\Extension\Core\Console\ExecuteCommand;
@@ -30,13 +31,13 @@ use Twig\Loader\FilesystemLoader;
 
 final class CoreExtension implements Extension
 {
+    public const VERSION = '0.x';
     public const TAG_BLOCK_EXECUTOR = 'core.block_executor';
     public const TAG_CONSOLE_COMMAND = 'core.console.command';
     public const PARAM_FORMAT_PATHS = 'core.format.paths';
-    public const PARAM_FORMAT = 'format';
-
+    public const PARAM_FORMAT = 'core.output_format';
+    public const PARAM_OUTPUT_PATH = 'core.output_path';
     private const PARAM_WORKSPACE_DIR = 'core.workspace_dir';
-    public const VERSION = '0.x';
 
 
     public function load(ContainerBuilder $container): void
@@ -49,14 +50,18 @@ final class CoreExtension implements Extension
 
     public function configure(Resolver $schema): void
     {
+        $cwd = (getcwd() ?: throw new RuntimeException(
+            'Could not determine CWD'
+        ));
+
         $schema->setTypes([
             self::PARAM_WORKSPACE_DIR => 'string',
             self::PARAM_FORMAT => 'string',
+            self::PARAM_OUTPUT_PATH => 'string',
         ]);
         $schema->setDefaults([
-            self::PARAM_WORKSPACE_DIR => (getcwd() ?: throw new RuntimeException(
-                'Could not determine CWD'
-            )) . '/workspace',
+            self::PARAM_WORKSPACE_DIR => $cwd . '/workspace',
+            self::PARAM_OUTPUT_PATH => $cwd . '/docs',
             self::PARAM_FORMAT_PATHS => [
                 __DIR__ . '/../../../templates',
             ],
@@ -101,6 +106,7 @@ final class CoreExtension implements Extension
                 $container->get(MainBlockExecutor::class),
                 $container->get(ArticleRenderer::class),
                 $container->get(Workspace::class),
+                $container->get(ArticleWriter::class),
             );
         }, [
             self::TAG_CONSOLE_COMMAND => [],
@@ -131,6 +137,11 @@ final class CoreExtension implements Extension
         $container->register(Workspace::class, function (Container $container) {
             return new Workspace($container->parameter(self::PARAM_WORKSPACE_DIR)->string());
         });
+        $container->register(ArticleWriter::class, function (Container $container) {
+            return new ArticleWriter(
+                $container->parameter(self::PARAM_OUTPUT_PATH)->string()
+            );
+        });
     }
 
     private function registerBlockExecutors(ContainerBuilder $container): void
@@ -152,6 +163,11 @@ final class CoreExtension implements Extension
         ]);
         $container->register(AssertContainsExecutor::class, function (Container $container) {
             return new AssertContainsExecutor();
+        }, [
+            self::TAG_BLOCK_EXECUTOR => [],
+        ]);
+        $container->register(SectionExecutor::class, function (Container $container) {
+            return new SectionExecutor();
         }, [
             self::TAG_BLOCK_EXECUTOR => [],
         ]);
