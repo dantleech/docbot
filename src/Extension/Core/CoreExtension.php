@@ -114,7 +114,7 @@ final class CoreExtension implements Extension
             self::TAG_BLOCK_EXECUTOR => [],
         ]);
         $container->register(ShellBlockExecutor::class, function (Container $container) {
-            return new ShellBlockExecutor();
+            return new ShellBlockExecutor($container->get(Workspace::class));
         }, [
             self::TAG_BLOCK_EXECUTOR => [],
         ]);

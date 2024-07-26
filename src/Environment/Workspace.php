@@ -39,8 +39,11 @@ final class Workspace
         $this->util->remove($this->path($path));
     }
 
-    private function path(string $path): string
+    public function path(?string $path = null): string
     {
+        if (null === $path) {
+            return $this->workingDirectory;
+        }
         return Path::makeAbsolute($path, $this->workingDirectory);
     }
 }
