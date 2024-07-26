@@ -1,13 +1,13 @@
 DTL Docbot
 ==========
 
-Docbot generates up-to-date and accurate documentation by **executing** the
+Docbot **generates** up-to-date and accurate documentation by **executing** the
 documentation.
 
 Status
 ------
 
-I've hacked this together in 8 hours
+I've hacked this together in 8 hours.
 
 How it works
 ------------
@@ -16,7 +16,7 @@ Essentially:
 
 - You provide an article containing a set of delarative blocks.
 - The blocks are executed output is captured.
-- The docuementation is rendered to a format of your choice (e.g. markdown).
+- The documentation is rendered to a format of your choice (e.g. markdown).
 
 Features
 --------
@@ -27,7 +27,9 @@ Features
 - Add your own extensions to provide custom blocks.
 - Easily customise the output format to suit your project (e.g. Markdown,
   Hugo, RsT, HTML, whatever).
+- Depend on other documents (pre-requisites).
 - Interact with web pages and capture screenshots (_planned_).
+- Lots of other stuff that I haven\'t done yet.
 
 Usage
 -----
@@ -53,7 +55,7 @@ return Article::create('hello_world', 'Hello World', [
     ]),
 ]);
 ```
-Now let's run generate some docs!
+Now let's generate some docs!
 ```shell
 $ ../bin/docbot execute docs
 Docbot 0.x by Daniel Leech
@@ -68,9 +70,12 @@ Executing article:
 
 Rendering article:
 
-Written 401 bytes to /home/daniel/www/dantleech/exedoc/workspace/docs/hello_world.md
+Written 402 bytes to /home/daniel/www/dantleech/exedoc/workspace/docs/hello_world.md
+
 ```
-We can view the output:
+We can view the output...
+`docs/hello_world.md`
+
 ``````text
 Hello World
 ===========
@@ -87,7 +92,8 @@ Hello World!
 Now we can execute a shell command and show the contents of that file:
 ```shell
 $ cat hello_world.txt
-Hello World!```
+Hello World!
+```
 Note that the output from the shell command is shown.
 
 
@@ -96,7 +102,9 @@ Note that the output from the shell command is shown.
 Inception
 ---------
 
-Oh no! We are code inception 😾. Look at the original script for this README:
+Oh no! We are stuck code inception 😾:
+`../docs/README.php`
+
 ``````php
 <?php
 
@@ -108,11 +116,11 @@ use DTL\Docbot\Extension\Core\Block\ShowFileBlock;
 
 return Article::create('../README', 'DTL Docbot', [
     <<<TEXT
-    Docbot generates up-to-date and accurate documentation by **executing** the
+    Docbot **generates** up-to-date and accurate documentation by **executing** the
     documentation.
     TEXT,
     new SectionBlock('Status', [
-        'I\'ve hacked this together in 8 hours',
+        'I\'ve hacked this together in 8 hours.',
     ]),
     new SectionBlock('How it works', [
         <<<TEXT
@@ -120,7 +128,7 @@ return Article::create('../README', 'DTL Docbot', [
 
         - You provide an article containing a set of delarative blocks.
         - The blocks are executed output is captured.
-        - The docuementation is rendered to a format of your choice (e.g. markdown).
+        - The documentation is rendered to a format of your choice (e.g. markdown).
         TEXT,
     ]),
     new SectionBlock('Features', [
@@ -131,7 +139,9 @@ return Article::create('../README', 'DTL Docbot', [
         - Add your own extensions to provide custom blocks.
         - Easily customise the output format to suit your project (e.g. Markdown,
           Hugo, RsT, HTML, whatever).
+        - Depend on other documents (pre-requisites).
         - Interact with web pages and capture screenshots (_planned_).
+        - Lots of other stuff that I haven\'t done yet.
         TEXT
     ]),
     new SectionBlock('Usage', [
@@ -155,13 +165,13 @@ return Article::create('../README', 'DTL Docbot', [
             ]);
             PHP,
         ),
-        'Now let\'s run generate some docs!',
+        'Now let\'s generate some docs!',
         new ShellBlock('../bin/docbot execute docs'),
-        'We can view the output:',
+        'We can view the output...',
         new ShowFileBlock('docs/hello_world.md', 'text'),
     ]),
     new SectionBlock('Inception', [
-        'Oh no! We are code inception 😾. Look at the original script for this README:',
+        'Oh no! We are stuck code inception 😾:',
         new ShowFileBlock('../docs/README.php', 'php'),
     ]),
 ]);

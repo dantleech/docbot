@@ -25,6 +25,7 @@ Create the following file at `{{ block.path }}`:
 $ {{ block.content }}
 {% if data.stdout %}{{ data.stdout }}{% endif %}
 {% if data.stderr %}{{ data.stderr }}{% endif %}
+
 ```
 {% endblock %}
 
@@ -43,6 +44,8 @@ $ {{ block.content }}
 {% endblock %}
 
 {% block core_show_file %}
+`{{ block.path }}`
+
 ``````{{ block.language }}
 {{ data.contents }}
 ``````

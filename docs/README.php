@@ -8,7 +8,7 @@ use DTL\Docbot\Extension\Core\Block\ShowFileBlock;
 
 return Article::create('../README', 'DTL Docbot', [
     <<<TEXT
-    Docbot generates up-to-date and accurate documentation by **executing** the
+    Docbot **generates** up-to-date and accurate documentation by **executing** the
     documentation.
     TEXT,
     new SectionBlock('Status', [
@@ -20,7 +20,7 @@ return Article::create('../README', 'DTL Docbot', [
 
         - You provide an article containing a set of delarative blocks.
         - The blocks are executed output is captured.
-        - The docuementation is rendered to a format of your choice (e.g. markdown).
+        - The documentation is rendered to a format of your choice (e.g. markdown).
         TEXT,
     ]),
     new SectionBlock('Features', [
@@ -31,7 +31,9 @@ return Article::create('../README', 'DTL Docbot', [
         - Add your own extensions to provide custom blocks.
         - Easily customise the output format to suit your project (e.g. Markdown,
           Hugo, RsT, HTML, whatever).
+        - Depend on other documents (pre-requisites).
         - Interact with web pages and capture screenshots (_planned_).
+        - Lots of other stuff that I haven\'t done yet.
         TEXT
     ]),
     new SectionBlock('Usage', [
@@ -55,13 +57,13 @@ return Article::create('../README', 'DTL Docbot', [
             ]);
             PHP,
         ),
-        'Now let\'s run generate some docs!',
+        'Now let\'s generate some docs!',
         new ShellBlock('../bin/docbot execute docs'),
-        'We can view the output:',
+        'We can view the output...',
         new ShowFileBlock('docs/hello_world.md', 'text'),
     ]),
     new SectionBlock('Inception', [
-        'Oh no! We are code inception 😾. Look at the original script for this README:',
+        'Oh no! We are stuck code inception 😾:',
         new ShowFileBlock('../docs/README.php', 'php'),
     ]),
 ]);

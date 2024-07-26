@@ -58,6 +58,7 @@ Generating autoload files
 Use the `composer fund` command to find out more!
 No security vulnerability advisories found.
 Using version ^7.1 for symfony/console
+
 ```
 
 Create the following file at `src/Console/HelloCommand.php`:
@@ -106,6 +107,7 @@ We'll need to make the command executable:
 
 ```shell
 $ chmod a+x bin/hello
+
 ```
 
 Now we can run our command:
@@ -113,6 +115,7 @@ Now we can run our command:
 ```shell
 $ ./bin/hello hello
 Hello
+
 ```
 
 Great!
