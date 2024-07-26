@@ -5,12 +5,11 @@ namespace DTL\Docbot\Extension\Core;
 use DTL\Docbot\Article\ArticleFinder;
 use DTL\Docbot\Article\Block\BlockExecutor;
 use DTL\Docbot\Article\MainBlockExecutor;
-use DTL\Docbot\Article\ProjectFilesystem;
+use DTL\Docbot\Environment\Workspace;
 use DTL\Docbot\Extension\Core\Block\CreateFileExecutor;
 use DTL\Docbot\Extension\Core\Block\ShellBlockExecutor;
 use DTL\Docbot\Extension\Core\Block\TextBlockExecutor;
 use DTL\Docbot\Extension\Core\Console\ExecuteCommand;
-use Dantleech\Exedoc\Extension\Core\Block\TextBlock;
 use Phpactor\Container\Container;
 use Phpactor\Container\ContainerBuilder;
 use Phpactor\Container\Extension;
@@ -24,7 +23,6 @@ final class CoreExtension implements Extension
 {
     public const TAG_BLOCK_EXECUTOR = 'core.block_executor';
     public const TAG_CONSOLE_COMMAND = 'core.console.command';
-
     private const PARAM_WORKSPACE_DIR = 'core.workspace_dir';
 
 
@@ -37,11 +35,13 @@ final class CoreExtension implements Extension
 
     public function configure(Resolver $schema): void
     {
-        $schema->setTypes([ 
+        $schema->setTypes([
             self::PARAM_WORKSPACE_DIR => 'string'
         ]);
-        $schema->setDefaults([  
-            self::PARAM_WORKSPACE_DIR => (getcwd() ?: throw new RuntimeException('Could not determine CWD')) . '/workspace',
+        $schema->setDefaults([
+            self::PARAM_WORKSPACE_DIR => (getcwd() ?: throw new RuntimeException(
+                'Could not determine CWD'
+            )) . '/workspace',
         ]);
     }
 
@@ -81,7 +81,7 @@ final class CoreExtension implements Extension
                 $container->get(ArticleFinder::class),
                 $container->get(MainBlockExecutor::class)
             );
-        }, [  
+        }, [
             self::TAG_CONSOLE_COMMAND => [],
         ]);
     }
@@ -101,8 +101,8 @@ final class CoreExtension implements Extension
             return new ArticleFinder();
         });
 
-        $container->register(ProjectFilesystem::class, function (Container $container) {
-            return new ProjectFilesystem($container->parameter(self::PARAM_WORKSPACE_DIR)->string());
+        $container->register(Workspace::class, function (Container $container) {
+            return new Workspace($container->parameter(self::PARAM_WORKSPACE_DIR)->string());
         });
     }
 
@@ -119,7 +119,7 @@ final class CoreExtension implements Extension
             self::TAG_BLOCK_EXECUTOR => [],
         ]);
         $container->register(CreateFileExecutor::class, function (Container $container) {
-            return new CreateFileExecutor($container->get(ProjectFilesystem::class));
+            return new CreateFileExecutor($container->get(Workspace::class));
         }, [
             self::TAG_BLOCK_EXECUTOR => [],
         ]);

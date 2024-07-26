@@ -1,12 +1,12 @@
 <?php
 
-namespace DTL\Docbot\Article;
+namespace DTL\Docbot\Environment;
 
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Path;
 
-final class ProjectFilesystem
+final class Workspace
 {
     private Filesystem $util;
 

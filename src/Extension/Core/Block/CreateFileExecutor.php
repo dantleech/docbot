@@ -6,13 +6,14 @@ use DTL\Docbot\Article\Block;
 use DTL\Docbot\Article\Block\BlockExecutor;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Article\ProjectFilesystem;
+use DTL\Docbot\Environment\Workspace;
 
 /**
  * @implements BlockExecutor<CreateFileBlock>
  */
 final class CreateFileExecutor implements BlockExecutor
 {
-    public function __construct(private ProjectFilesystem $filesystem)
+    public function __construct(private Workspace $workspace)
     {
     }
 
@@ -23,11 +24,11 @@ final class CreateFileExecutor implements BlockExecutor
 
     public function execute(MainBlockExecutor $executor, Block $block): void
     {
-        $this->filesystem->createFile($block->path, $block->content);
+        $this->workspace->createFile($block->path, $block->content);
     }
 
     public function rollback(MainBlockExecutor $executor, Block $block): void
     {
-        $this->filesystem->remove($block->path);
+        $this->workspace->remove($block->path);
     }
 }
