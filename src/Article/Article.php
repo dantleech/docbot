@@ -3,6 +3,7 @@
 namespace DTL\Docbot\Article;
 
 use DTL\Docbot\Article\Article;
+use DTL\Docbot\Extension\Core\Block\TextBlock;
 
 final class Article implements Block
 {
@@ -14,11 +15,16 @@ final class Article implements Block
     }
 
     /**
-     * @param Block[] $blocks
+     * @param list<string|Block> $blocks
      */
     public static function create(string $title, array $blocks): Article
     {
-        return new self($title, $blocks);
+        return new self($title, array_map(function (string|Block $block) {
+            if (is_string($block)) {
+                return new TextBlock($block);
+            }
+            return $block;
+        }, $blocks));
     }
 
     public function describe(): string

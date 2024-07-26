@@ -14,7 +14,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'execute', description: 'Execute docs')]
 final class ExecuteCommand extends Command
 {
-    public function __construct(private ArticleFinder $finder, private MainBlockExecutor $executor)
+    public function __construct(
+        private ArticleFinder $finder,
+        private MainBlockExecutor $executor
+    )
     {
         parent::__construct();
     }
@@ -37,8 +40,15 @@ final class ExecuteCommand extends Command
         $articles = $this->finder->findInPath($path);
 
         foreach ($articles as $article) {
+            $output->writeln(sprintf('<info>%s</>', $article->title));
+            $output->writeln(sprintf('<info>%s</>', str_repeat('=', mb_strlen($article->title))));
+
+            $output->writeln('');
+            $output->writeln('Executing article:');
+            $output->writeln('');
+
             foreach ($article->blocks as $block) {
-                $output->writeln('<comment>==> </>' . $block->describe());
+                $output->writeln('<comment>=> </>' . $block->describe());
                 $this->executor->execute($block);
             }
         }

@@ -29,7 +29,15 @@ final class ShellBlockExecutor implements BlockExecutor
         $exitCode = $process->run();
 
         if ($exitCode !== $block->exitCode) {
-            throw AssertionFailed::create('expected exit code to be %d but got %d');
+            throw AssertionFailed::create(
+                sprintf(
+                    'expected exit code to be %d but got %d: STDOUT: %s, STDERR: %s',
+                    $block->exitCode,
+                    $exitCode,
+                    $process->getOutput(),
+                    $process->getErrorOutput(),
+                )
+            );
         }
     }
 

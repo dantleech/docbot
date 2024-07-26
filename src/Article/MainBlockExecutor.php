@@ -38,7 +38,7 @@ final class MainBlockExecutor
             $executor->execute($this, $block);
         } catch (AssertionFailed $failed) {
             throw new AssertionFailed(sprintf(
-                'Assertion failed for %s: %s',
+                'Assertion failed for block `%s`: %s',
                 $block->describe(),
                 $failed->getMessage(),
             ), 0, $failed);
