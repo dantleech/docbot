@@ -15,4 +15,8 @@ final class TextBlock implements Block
         return $this->text;
     }
 
+    public static function name(): string
+    {
+        return 'core_text';
+    }
 }

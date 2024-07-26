@@ -25,6 +25,7 @@
     "require": {
         "symfony/console": "^7.1",
         "symfony/finder": "^7.1",
-        "phpactor/container": "^2.2"
+        "phpactor/container": "^2.2",
+        "twig/twig": "^3.10"
     }
 }

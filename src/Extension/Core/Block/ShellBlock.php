@@ -19,4 +19,9 @@ final class ShellBlock implements Block
             $this->exitCode
         );
     }
+
+    public static function name(): string
+    {
+        return 'core_shell';
+    }
 }

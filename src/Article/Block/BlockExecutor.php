@@ -3,6 +3,7 @@
 namespace DTL\Docbot\Article\Block;
 
 use DTL\Docbot\Article\Block;
+use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\MainBlockExecutor;
 
 /**
@@ -18,10 +19,5 @@ interface BlockExecutor
     /**
      * @param TBlock $block
      */
-    public function execute(MainBlockExecutor $executor, Block $block): void;
-
-    /**
-     * @param TBlock $block
-     */
-    public function rollback(MainBlockExecutor $executor, Block $block): void;
+    public function execute(MainBlockExecutor $executor, Block $block): BlockData;
 }

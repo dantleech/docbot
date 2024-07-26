@@ -3,7 +3,9 @@
 namespace DTL\Docbot\Extension\Core\Block;
 
 use DTL\Docbot\Article\Block;
+use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\Block\BlockExecutor;
+use DTL\Docbot\Article\Block\NoBlockData;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Article\ProjectFilesystem;
 use DTL\Docbot\Environment\Workspace;
@@ -22,13 +24,9 @@ final class CreateFileExecutor implements BlockExecutor
         return CreateFileBlock::class;
     }
 
-    public function execute(MainBlockExecutor $executor, Block $block): void
+    public function execute(MainBlockExecutor $executor, Block $block): BlockData
     {
         $this->workspace->createFile($block->path, $block->content);
-    }
-
-    public function rollback(MainBlockExecutor $executor, Block $block): void
-    {
-        $this->workspace->remove($block->path);
+        return new NoBlockData();
     }
 }

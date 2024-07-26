@@ -3,6 +3,7 @@
 namespace DTL\Docbot\Extension\Core\Console;
 
 use DTL\Docbot\Article\ArticleFinder;
+use DTL\Docbot\Article\ArticleRenderer;
 use DTL\Docbot\Article\MainBlockExecutor;
 use RuntimeException;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -16,7 +17,8 @@ final class ExecuteCommand extends Command
 {
     public function __construct(
         private ArticleFinder $finder,
-        private MainBlockExecutor $executor
+        private MainBlockExecutor $executor,
+        private ArticleRenderer $renderer
     )
     {
         parent::__construct();
@@ -51,6 +53,12 @@ final class ExecuteCommand extends Command
                 $output->writeln('<comment>=> </>' . $block->describe());
                 $this->executor->execute($block);
             }
+
+            $output->writeln('');
+            $output->writeln('Rendering article:');
+            $output->writeln('');
+
+            $output->writeln($this->renderer->render($article)->contents);
         }
 
         return 0;

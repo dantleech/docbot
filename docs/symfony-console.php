@@ -4,7 +4,7 @@ use DTL\Docbot\Extension\Core\Block\CreateFileBlock;
 use DTL\Docbot\Extension\Core\Block\ShellBlock;
 use DTL\Docbot\Article\Article;
 
-return Article::create('Creating a Console Application', [
+return Article::create('symfony_console', 'Creating a Console Application', [
     'Welcome to the Symfony Console tutorial.',
     'In this tutorial we will create a new Symfony Console application.',
     'First we need to create a composer JSON file so our source code can be loaded:',
@@ -17,7 +17,8 @@ return Article::create('Creating a Console Application', [
                 }
             }
         }
-        JSON),
+        JSON
+    ),
     'Use composer to require the latest Symfony Console component:',
     new ShellBlock('composer require symfony/console'),
     'Create a console command:',

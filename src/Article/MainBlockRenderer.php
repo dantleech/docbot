@@ -7,7 +7,7 @@ use DTL\Docbot\Article\Block\BlockExecutor;
 use DTL\Docbot\Article\Error\AssertionFailed;
 use RuntimeException;
 
-final class MainBlockExecutor
+final class MainBlockRenderer
 {
     /**
      * @var array<class-string<Block>,BlockExecutor<Block>>
@@ -24,7 +24,7 @@ final class MainBlockExecutor
         }
     }
 
-    public function execute(Block $block): BlockData
+    public function render(Block $block): void
     {
         if (!isset($this->executors[$block::class])) {
             throw new RuntimeException(sprintf(
@@ -34,9 +34,8 @@ final class MainBlockExecutor
         }
 
         $executor = $this->executors[$block::class];
-
         try {
-            return $executor->execute($this, $block);
+            $executor->execute($this, $block);
         } catch (AssertionFailed $failed) {
             throw new AssertionFailed(sprintf(
                 'Assertion failed for block `%s`: %s',
@@ -46,3 +45,4 @@ final class MainBlockExecutor
         }
     }
 }
+

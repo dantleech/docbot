@@ -21,4 +21,9 @@ final readonly class CreateFileBlock implements Block
             $this->path
         );
     }
+
+    public static function name(): string
+    {
+        return 'core_create_file';
+    }
 }

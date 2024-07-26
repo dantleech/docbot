@@ -3,6 +3,7 @@
 namespace DTL\Docbot\Extension\Core\Block;
 
 use DTL\Docbot\Article\Block;
+use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\Block\BlockExecutor;
 use DTL\Docbot\Article\Error\AssertionFailed;
 use DTL\Docbot\Article\MainBlockExecutor;
@@ -23,7 +24,7 @@ final class ShellBlockExecutor implements BlockExecutor
         return ShellBlock::class;
     }
 
-    public function execute(MainBlockExecutor $executor, Block $block): void
+    public function execute(MainBlockExecutor $executor, Block $block): BlockData
     {
         $process = Process::fromShellCommandline($block->content, $this->workspace->path());
         $exitCode = $process->run();
@@ -39,9 +40,7 @@ final class ShellBlockExecutor implements BlockExecutor
                 )
             );
         }
-    }
 
-    public function rollback(MainBlockExecutor $executor, Block $block): void
-    {
+        return new ShellBlockData($process->getOutput(), $process->getErrorOutput());
     }
 }
