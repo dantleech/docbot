@@ -1,6 +1,6 @@
 <?php
 
-namespace Dantleech\Exedoc\Model\Block;
+namespace Dantleech\Exedoc\Extension\Core\Block;
 
 use Dantleech\Exedoc\Model\Block;
 
