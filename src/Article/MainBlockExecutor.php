@@ -17,14 +17,14 @@ final class MainBlockExecutor
     /**
      * @param list<BlockExecutor<Block>> $executors
      */
-    public function __construct(array $executors)
+    public function __construct(array $executors, private BlockDataBuffer $buffer)
     {
         foreach ($executors as $executor) {
             $this->executors[$executor::for()] = $executor;
         }
     }
 
-    public function execute(Block $block): BlockData
+    public function execute(Block $block): void
     {
         if (!isset($this->executors[$block::class])) {
             throw new RuntimeException(sprintf(
@@ -36,7 +36,7 @@ final class MainBlockExecutor
         $executor = $this->executors[$block::class];
 
         try {
-            return $executor->execute($this, $block);
+            $this->buffer->register($block, $executor->execute($this, $block));
         } catch (AssertionFailed $failed) {
             throw new AssertionFailed(sprintf(
                 'Assertion failed for block `%s`: %s',

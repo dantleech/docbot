@@ -4,6 +4,7 @@ namespace DTL\Docbot\Extension\Core;
 
 use DTL\Docbot\Article\ArticleFinder;
 use DTL\Docbot\Article\ArticleRenderer;
+use DTL\Docbot\Article\BlockDataBuffer;
 use DTL\Docbot\Article\Block\BlockExecutor;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Environment\Workspace;
@@ -110,7 +111,13 @@ final class CoreExtension implements Extension
                 $executors[] = $container->expect($serviceId, BlockExecutor::class);
             }
 
-            return new MainBlockExecutor($executors);
+            return new MainBlockExecutor(
+                $executors,
+                $container->get(BlockDataBuffer::class)
+            );
+        });
+        $container->register(BlockDataBuffer::class, function (Container $container) {
+            return new BlockDataBuffer();
         });
 
         $container->register(ArticleFinder::class, function (Container $container) {
@@ -152,6 +159,7 @@ final class CoreExtension implements Extension
         });
         $container->register(TwigBlockRenderer::class, function (Container $container) {
             return new TwigBlockRenderer(
+                $container->get(BlockDataBuffer::class),
             );
         });
 
