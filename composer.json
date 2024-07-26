@@ -1,13 +1,13 @@
 {
-    "name": "dantleech/exedoc",
+    "name": "dantleech/docbot",
     "autoload": {
         "psr-4": {
-            "Dantleech\\Exedoc\\": "src/"
+            "DTL\\Docbot\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Dantleech\\Exedoc\\Tests\\": "tests/"
+            "DTL\\Docbot\\Tests\\": "tests/"
         }
     },
     "authors": [

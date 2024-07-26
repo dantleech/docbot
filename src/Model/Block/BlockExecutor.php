@@ -1,9 +1,9 @@
 <?php
 
-namespace Dantleech\Exedoc\Model\Block;
+namespace DTL\Docbot\Model\Block;
 
-use Dantleech\Exedoc\Model\Block;
-use Dantleech\Exedoc\Model\MainBlockExecutor;
+use DTL\Docbot\Model\Block;
+use DTL\Docbot\Model\MainBlockExecutor;
 
 /**
  * @template TBlock of Block

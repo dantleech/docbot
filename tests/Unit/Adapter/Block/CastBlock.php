@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 
-namespace Dantleech\Exedoc\Tests\Unit\Adapter\Block;
+namespace DTL\Docbot\Tests\Unit\Adapter\Block;
 
-use Dantleech\Exedoc\Model\Block;
+use DTL\Docbot\Model\Block;
 
 final class CastBlock implements Block
 {

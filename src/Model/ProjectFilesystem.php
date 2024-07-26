@@ -1,6 +1,6 @@
 <?php
 
-namespace Dantleech\Exedoc\Model;
+namespace DTL\Docbot\Model;
 
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;

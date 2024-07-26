@@ -1,6 +1,6 @@
 <?php
 
-namespace Dantleech\Exedoc\Model\Error;
+namespace DTL\Docbot\Model\Error;
 
 use RuntimeException;
 

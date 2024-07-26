@@ -1,0 +1,8 @@
+#!/usr/bin/env php
+<?php
+
+use DTL\Docbot\Docbot;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+(new Docbot((string)getcwd()))->application()->run();

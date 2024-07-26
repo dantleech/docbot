@@ -1,6 +1,6 @@
 <?php
 
-namespace Dantleech\Exedoc\Extension\Core\Block;
+namespace DTL\Docbot\Extension\Core\Block;
 
 final class Blocks
 {

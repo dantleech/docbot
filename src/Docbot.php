@@ -1,18 +1,18 @@
 <?php
 
-namespace Dantleech\Exedoc;
+namespace DTL\Docbot;
 
-use Dantleech\Exedoc\Extension\Core\Block\CreateFileExecutor;
-use Dantleech\Exedoc\Console\ExecuteCommand;
-use Dantleech\Exedoc\Extension\Core\Block\ShellBlockExecutor;
-use Dantleech\Exedoc\Extension\Core\Block\TextBlockExecutor;
-use Dantleech\Exedoc\Model\ArticleFinder;
-use Dantleech\Exedoc\Model\MainBlockExecutor;
-use Dantleech\Exedoc\Model\ProjectFilesystem;
+use DTL\Docbot\Extension\Core\Block\CreateFileExecutor;
+use DTL\Docbot\Console\ExecuteCommand;
+use DTL\Docbot\Extension\Core\Block\ShellBlockExecutor;
+use DTL\Docbot\Extension\Core\Block\TextBlockExecutor;
+use DTL\Docbot\Model\ArticleFinder;
+use DTL\Docbot\Model\MainBlockExecutor;
+use DTL\Docbot\Model\ProjectFilesystem;
 use RuntimeException;
 use Symfony\Component\Console\Application;
 
-final class Exedoc
+final class Docbot
 {
     private string $cwd;
 

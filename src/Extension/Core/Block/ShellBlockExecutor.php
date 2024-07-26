@@ -1,11 +1,11 @@
 <?php
 
-namespace Dantleech\Exedoc\Extension\Core\Block;
+namespace DTL\Docbot\Extension\Core\Block;
 
-use Dantleech\Exedoc\Model\Block;
-use Dantleech\Exedoc\Model\Block\BlockExecutor;
-use Dantleech\Exedoc\Model\Error\AssertionFailed;
-use Dantleech\Exedoc\Model\MainBlockExecutor;
+use DTL\Docbot\Model\Block;
+use DTL\Docbot\Model\Block\BlockExecutor;
+use DTL\Docbot\Model\Error\AssertionFailed;
+use DTL\Docbot\Model\MainBlockExecutor;
 use Symfony\Component\Process\Process;
 
 /**

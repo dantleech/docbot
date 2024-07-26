@@ -1,8 +1,0 @@
-#!/usr/bin/env php
-<?php
-
-use Dantleech\Exedoc\Exedoc;
-
-require __DIR__ . '/../vendor/autoload.php';
-
-(new Exedoc((string)getcwd()))->application()->run();

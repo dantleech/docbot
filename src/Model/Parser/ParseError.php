@@ -1,6 +1,6 @@
 <?php
 
-namespace Dantleech\Exedoc\Model\Parser;
+namespace DTL\Docbot\Model\Parser;
 
 use RuntimeException;
 use Throwable;

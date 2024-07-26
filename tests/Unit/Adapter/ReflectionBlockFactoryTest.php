@@ -1,10 +1,10 @@
 <?php
 
-namespace Dantleech\Exedoc\Tests\Unit\Adapter;
+namespace DTL\Docbot\Tests\Unit\Adapter;
 
-use Dantleech\Exedoc\Adapter\ReflectionBlockFactory;
-use Dantleech\Exedoc\Tests\Unit\Adapter\Block\CastBlock;
-use Dantleech\Exedoc\Tests\Unit\Adapter\Block\TestBlock;
+use DTL\Docbot\Adapter\ReflectionBlockFactory;
+use DTL\Docbot\Tests\Unit\Adapter\Block\CastBlock;
+use DTL\Docbot\Tests\Unit\Adapter\Block\TestBlock;
 use PHPUnit\Framework\TestCase;
 
 final class ReflectionBlockFactoryTest extends TestCase

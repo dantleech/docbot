@@ -1,6 +1,6 @@
 <?php
 
-namespace Dantleech\Exedoc\Model;
+namespace DTL\Docbot\Model;
 
 interface Block
 {

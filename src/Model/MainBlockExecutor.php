@@ -1,9 +1,9 @@
 <?php
 
-namespace Dantleech\Exedoc\Model;
+namespace DTL\Docbot\Model;
 
-use Dantleech\Exedoc\Model\Block\BlockExecutor;
-use Dantleech\Exedoc\Model\Error\AssertionFailed;
+use DTL\Docbot\Model\Block\BlockExecutor;
+use DTL\Docbot\Model\Error\AssertionFailed;
 use RuntimeException;
 
 final class MainBlockExecutor

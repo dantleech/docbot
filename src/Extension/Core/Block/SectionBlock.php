@@ -1,8 +1,8 @@
 <?php
 
-namespace Dantleech\Exedoc\Extension\Core\Block;
+namespace DTL\Docbot\Extension\Core\Block;
 
-use Dantleech\Exedoc\Model\Block;
+use DTL\Docbot\Model\Block;
 
 final readonly class SectionBlock implements Block
 {

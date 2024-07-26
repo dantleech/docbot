@@ -1,9 +1,9 @@
 <?php
 
-namespace Dantleech\Exedoc\Console;
+namespace DTL\Docbot\Console;
 
-use Dantleech\Exedoc\Model\ArticleFinder;
-use Dantleech\Exedoc\Model\MainBlockExecutor;
+use DTL\Docbot\Model\ArticleFinder;
+use DTL\Docbot\Model\MainBlockExecutor;
 use RuntimeException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
