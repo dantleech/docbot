@@ -29,11 +29,11 @@ final class ShellBlockExecutor implements BlockExecutor
         $process = Process::fromShellCommandline($block->content, $this->workspace->path());
         $exitCode = $process->run();
 
-        if ($exitCode !== $block->exitCode) {
+        if ($exitCode !== $block->assertExitCode) {
             throw AssertionFailed::create(
                 sprintf(
                     'expected exit code to be %d but got %d: STDOUT: %s, STDERR: %s',
-                    $block->exitCode,
+                    $block->assertExitCode,
                     $exitCode,
                     $process->getOutput(),
                     $process->getErrorOutput(),

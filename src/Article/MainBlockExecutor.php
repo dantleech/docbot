@@ -24,7 +24,7 @@ final class MainBlockExecutor
         }
     }
 
-    public function execute(Block $block): void
+    public function execute(Block $block): BlockData
     {
         if (!isset($this->executors[$block::class])) {
             throw new RuntimeException(sprintf(
@@ -36,12 +36,14 @@ final class MainBlockExecutor
         $executor = $this->executors[$block::class];
 
         try {
-            $this->buffer->register($block, $executor->execute($this, $block));
+            $blockData = $executor->execute($this, $block);
+            $this->buffer->register($block, $blockData);
+            return $blockData;
         } catch (AssertionFailed $failed) {
             throw new AssertionFailed(sprintf(
-                'Assertion failed for block `%s`: %s',
+                "Assertion failed for block:\n\n  %s\n\n%s",
                 $block->describe(),
-                $failed->getMessage(),
+                ucfirst($failed->getMessage()),
             ), 0, $failed);
         }
     }

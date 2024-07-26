@@ -46,4 +46,12 @@ final class Workspace
         }
         return Path::makeAbsolute($path, $this->workingDirectory);
     }
+
+    public function clean(): void
+    {
+        if (file_exists($this->workingDirectory)) {
+            $this->util->remove($this->workingDirectory);
+        }
+        $this->util->mkdir($this->workingDirectory);
+    }
 }

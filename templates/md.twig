@@ -2,13 +2,19 @@
 {{ block.title }}
 {% for i in range(1,block.title|length) -%}={% endfor %}
 
+
 {% for block in block.blocks %}
 {{ render_block(block) }}
 {% endfor %}
 {% endblock %}
 
+{% block core_assert_contains %}
+{{- render_block(block.block) -}}
+{% endblock %}
+
 {% block core_create_file %}
 Create the following file at `{{ block.path }}`:
+
 ```{{ block.language }}
 {{ block.content }}
 ```

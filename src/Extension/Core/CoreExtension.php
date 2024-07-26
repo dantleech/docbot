@@ -8,6 +8,8 @@ use DTL\Docbot\Article\BlockDataBuffer;
 use DTL\Docbot\Article\Block\BlockExecutor;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Environment\Workspace;
+use DTL\Docbot\Extension\Core\Block\AssertContainsBlock;
+use DTL\Docbot\Extension\Core\Block\AssertContainsExecutor;
 use DTL\Docbot\Extension\Core\Block\CreateFileExecutor;
 use DTL\Docbot\Extension\Core\Block\ShellBlockExecutor;
 use DTL\Docbot\Extension\Core\Block\TextBlockExecutor;
@@ -34,6 +36,7 @@ final class CoreExtension implements Extension
     public const PARAM_FORMAT = 'format';
 
     private const PARAM_WORKSPACE_DIR = 'core.workspace_dir';
+    public const VERSION = '0.x';
 
 
     public function load(ContainerBuilder $container): void
@@ -96,7 +99,8 @@ final class CoreExtension implements Extension
             return new ExecuteCommand(
                 $container->get(ArticleFinder::class),
                 $container->get(MainBlockExecutor::class),
-                $container->get(ArticleRenderer::class)
+                $container->get(ArticleRenderer::class),
+                $container->get(Workspace::class),
             );
         }, [
             self::TAG_CONSOLE_COMMAND => [],
@@ -143,6 +147,11 @@ final class CoreExtension implements Extension
         ]);
         $container->register(CreateFileExecutor::class, function (Container $container) {
             return new CreateFileExecutor($container->get(Workspace::class));
+        }, [
+            self::TAG_BLOCK_EXECUTOR => [],
+        ]);
+        $container->register(AssertContainsExecutor::class, function (Container $container) {
+            return new AssertContainsExecutor();
         }, [
             self::TAG_BLOCK_EXECUTOR => [],
         ]);

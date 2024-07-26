@@ -6,18 +6,17 @@ use DTL\Docbot\Article\Block;
 
 final class ShellBlock implements Block
 {
-    public function __construct(public string $content, public int $exitCode = 0, public ?string $cwd = null)
+    public function __construct(
+        public string $content,
+        public int $assertExitCode = 0,
+        public ?string $cwd = null,
+    )
     {
     }
 
     public function describe(): string
     {
-        return sprintf(
-            '$ %s in "%s" expecting code %d',
-            trim($this->content),
-            $this->cwd ?? '<cwd>',
-            $this->exitCode
-        );
+        return sprintf('%s', trim($this->content));
     }
 
     public static function name(): string
