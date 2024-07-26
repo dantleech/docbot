@@ -4,11 +4,11 @@ namespace Dantleech\Exedoc\Tests\Unit\Adapter;
 
 use Dantleech\Exedoc\Adapter\CommonMarkAdapter;
 use Dantleech\Exedoc\Adapter\ReflectionBlockFactory;
-use Dantleech\Exedoc\Block\CreateFileBlock;
+use Dantleech\Exedoc\Extension\Core\Block\CreateFileBlock;
 use Dantleech\Exedoc\Model\Article;
 use Dantleech\Exedoc\Model\Block;
-use Dantleech\Exedoc\Model\Block\SectionBlock;
-use Dantleech\Exedoc\Model\Block\TextBlock;
+use Dantleech\Exedoc\Extension\Core\Block\SectionBlock;
+use Dantleech\Exedoc\Extension\Core\Block\TextBlock;
 use PHPUnit\Framework\TestCase;
 
 final class CommonMarkAdapterTest extends TestCase

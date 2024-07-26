@@ -2,21 +2,25 @@
 
 namespace Dantleech\Exedoc;
 
-use Dantleech\Exedoc\Adapter\CommonMarkAdapter;
-use Dantleech\Exedoc\Adapter\ReflectionBlockFactory;
-use Dantleech\Exedoc\Extension\Core\Block\CreateFileBlock;
-use Dantleech\Exedoc\Extension\Core\Block\ShellBlock;
+use Dantleech\Exedoc\Extension\Core\Block\CreateFileExecutor;
 use Dantleech\Exedoc\Console\ExecuteCommand;
+use Dantleech\Exedoc\Extension\Core\Block\ShellBlockExecutor;
+use Dantleech\Exedoc\Extension\Core\Block\TextBlockExecutor;
 use Dantleech\Exedoc\Model\ArticleFinder;
-use Dantleech\Exedoc\Model\BlockFactory;
-use Dantleech\Exedoc\Model\Parser;
+use Dantleech\Exedoc\Model\MainBlockExecutor;
+use Dantleech\Exedoc\Model\ProjectFilesystem;
+use RuntimeException;
 use Symfony\Component\Console\Application;
 
 final class Exedoc
 {
-    public function __construct(private string $cwd)
+    private string $cwd;
+
+    public function __construct(?string $cwd = null)
     {
+        $this->cwd = $cwd ?? getcwd() ?: throw new RuntimeException('Could not determine cwd');
     }
+
     public function application(): Application
     {
         $app = new Application('exedoc');
@@ -29,24 +33,30 @@ final class Exedoc
 
     private function commandExecute(): ExecuteCommand
     {
-        return new ExecuteCommand($this->finder());
+        return new ExecuteCommand(
+            $this->finder(),
+            $this->createBlockExecutor(
+            )
+        );
+    }
+
+    private function createBlockExecutor(): MainBlockExecutor
+    {
+        return new MainBlockExecutor([
+            new CreateFileExecutor($this->createProjectFilesystem()),
+            new TextBlockExecutor(),
+            new ShellBlockExecutor(),
+        ]);
+
     }
 
     private function finder(): ArticleFinder
     {
-        return new ArticleFinder($this->parser(), $this->cwd);
+        return new ArticleFinder();
     }
 
-    private function parser(): Parser
+    private function createProjectFilesystem(): ProjectFilesystem
     {
-        return CommonMarkAdapter::create($this->directiveFactory());
-    }
-
-    private function directiveFactory(): BlockFactory
-    {
-        return new ReflectionBlockFactory([
-            'create' => CreateFileBlock::class,
-            'shell' => ShellBlock::class,
-        ]);
+        return new ProjectFilesystem($this->cwd);
     }
 }
