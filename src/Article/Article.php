@@ -1,6 +1,8 @@
 <?php
 
-namespace DTL\Docbot\Model;
+namespace DTL\Docbot\Article;
+
+use DTL\Docbot\Article\Article;
 
 final class Article implements Block
 {

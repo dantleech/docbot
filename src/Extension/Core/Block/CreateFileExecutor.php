@@ -2,10 +2,10 @@
 
 namespace DTL\Docbot\Extension\Core\Block;
 
-use DTL\Docbot\Model\Block;
-use DTL\Docbot\Model\Block\BlockExecutor;
-use DTL\Docbot\Model\MainBlockExecutor;
-use DTL\Docbot\Model\ProjectFilesystem;
+use DTL\Docbot\Article\Block;
+use DTL\Docbot\Article\Block\BlockExecutor;
+use DTL\Docbot\Article\MainBlockExecutor;
+use DTL\Docbot\Article\ProjectFilesystem;
 
 /**
  * @implements BlockExecutor<CreateFileBlock>

@@ -1,9 +1,9 @@
 <?php
 
-namespace DTL\Docbot\Console;
+namespace DTL\Docbot\Extension\Core\Console;
 
-use DTL\Docbot\Model\ArticleFinder;
-use DTL\Docbot\Model\MainBlockExecutor;
+use DTL\Docbot\Article\ArticleFinder;
+use DTL\Docbot\Article\MainBlockExecutor;
 use RuntimeException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

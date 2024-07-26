@@ -1,6 +1,6 @@
 <?php
 
-namespace DTL\Docbot\Model\Parser;
+namespace DTL\Docbot\Article\Parser;
 
 use RuntimeException;
 

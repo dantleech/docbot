@@ -1,6 +1,6 @@
 <?php
 
-namespace DTL\Docbot\Model;
+namespace DTL\Docbot\Article;
 
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
@@ -17,7 +17,12 @@ final class ProjectFilesystem
 
     public function createFile(string $path, string $contents): int
     {
-        $written = file_put_contents($this->path($path), $contents);
+        $path = $this->path($path);
+        $dir = dirname($path);
+        if (!file_exists($dir)) {
+            $this->util->mkdir($dir);
+        }
+        $written = file_put_contents($path, $contents);
 
         if ($written === false) {
             throw new RuntimeException(sprintf(

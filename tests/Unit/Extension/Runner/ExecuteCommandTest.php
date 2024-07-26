@@ -1,6 +1,6 @@
 <?php
 
-namespace DTL\Docbot\Tests\Unit\Console;
+namespace DTL\Docbot\Tests\Unit\Extension\Runner;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Process\Process;

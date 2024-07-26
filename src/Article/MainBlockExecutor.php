@@ -1,9 +1,10 @@
 <?php
 
-namespace DTL\Docbot\Model;
+namespace DTL\Docbot\Article;
 
-use DTL\Docbot\Model\Block\BlockExecutor;
-use DTL\Docbot\Model\Error\AssertionFailed;
+use DTL\Docbot\Article\Block;
+use DTL\Docbot\Article\Block\BlockExecutor;
+use DTL\Docbot\Article\Error\AssertionFailed;
 use RuntimeException;
 
 final class MainBlockExecutor

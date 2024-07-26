@@ -1,6 +1,6 @@
 <?php
 
-namespace DTL\Docbot\Model;
+namespace DTL\Docbot\Article;
 
 interface Block
 {

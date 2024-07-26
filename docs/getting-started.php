@@ -3,7 +3,7 @@
 use DTL\Docbot\Extension\Core\Block\CreateFileBlock;
 use DTL\Docbot\Extension\Core\Block\ShellBlock;
 use DTL\Docbot\Extension\Core\Block\TextBlock;
-use DTL\Docbot\Model\Article;
+use DTL\Docbot\Article\Article;
 
 
 return Article::create('Symfony Console', [

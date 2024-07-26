@@ -1,6 +1,6 @@
 <?php
 
-namespace DTL\Docbot\Model\Error;
+namespace DTL\Docbot\Article\Error;
 
 use RuntimeException;
 

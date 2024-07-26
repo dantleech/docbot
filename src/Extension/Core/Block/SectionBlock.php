@@ -2,7 +2,7 @@
 
 namespace DTL\Docbot\Extension\Core\Block;
 
-use DTL\Docbot\Model\Block;
+use DTL\Docbot\Article\Block;
 
 final readonly class SectionBlock implements Block
 {

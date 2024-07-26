@@ -2,10 +2,10 @@
 
 namespace DTL\Docbot\Extension\Core\Block;
 
-use DTL\Docbot\Model\Block;
-use DTL\Docbot\Model\Block\BlockExecutor;
-use DTL\Docbot\Model\Error\AssertionFailed;
-use DTL\Docbot\Model\MainBlockExecutor;
+use DTL\Docbot\Article\Block;
+use DTL\Docbot\Article\Block\BlockExecutor;
+use DTL\Docbot\Article\Error\AssertionFailed;
+use DTL\Docbot\Article\MainBlockExecutor;
 use Symfony\Component\Process\Process;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace DTL\Docbot\Tests\Unit\Adapter\Block;
 
-use DTL\Docbot\Model\Block;
+use DTL\Docbot\Article\Block;
 
 final class TestBlock implements Block
 {

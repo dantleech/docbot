@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace DTL\Docbot\Tests\Unit\Adapter\Block;
 
-use DTL\Docbot\Model\Block;
+use DTL\Docbot\Article\Block;
 
 final class CastBlock implements Block
 {
