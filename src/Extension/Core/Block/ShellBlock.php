@@ -10,8 +10,7 @@ final class ShellBlock implements Block
         public string $content,
         public int $assertExitCode = 0,
         public ?string $cwd = null,
-    )
-    {
+    ) {
     }
 
     public function describe(): string

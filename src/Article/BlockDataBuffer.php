@@ -3,7 +3,6 @@
 namespace DTL\Docbot\Article;
 
 use DTL\Docbot\Article\Block\NoBlockData;
-use RuntimeException;
 
 final class BlockDataBuffer
 {
@@ -21,12 +20,8 @@ final class BlockDataBuffer
     {
         $id = spl_object_id($block);
         if (!isset($this->map[$id])) {
+            // TODO: disallow this
             return new NoBlockData();
-            throw new RuntimeException(sprintf(
-                'Trying to pop data for block that has not been executed: [%s] %s',
-                $block::class,
-                $block->describe()
-            ));
         }
 
         $block = $this->map[$id];

@@ -2,7 +2,6 @@
 
 namespace DTL\Docbot\Article;
 
-use DTL\Docbot\Article\Article;
 use DTL\Docbot\Extension\Core\Block\TextBlock;
 
 final class Article implements Block

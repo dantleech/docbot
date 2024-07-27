@@ -2,8 +2,6 @@
 
 namespace DTL\Docbot\Article;
 
-use DTL\Docbot\Article\Block;
-use DTL\Docbot\Article\BlockExecutor;
 use DTL\Docbot\Article\Error\AssertionFailed;
 use RuntimeException;
 

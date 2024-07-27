@@ -20,4 +20,3 @@ final class ShowFileBlock implements Block
         return 'core_show_file';
     }
 }
-

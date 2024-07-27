@@ -33,7 +33,6 @@ use Twig\Loader\FilesystemLoader;
 final class CoreExtension implements Extension
 {
     public const VERSION = '0.x';
-
     public const TAG_BLOCK_EXECUTOR = 'core.block_executor';
     public const TAG_CONSOLE_COMMAND = 'core.console.command';
     public const PARAM_FORMAT_PATHS = 'core.format.paths';

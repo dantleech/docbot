@@ -2,10 +2,6 @@
 
 namespace DTL\Docbot\Article;
 
-use DTL\Docbot\Article\Block;
-use DTL\Docbot\Article\BlockData;
-use DTL\Docbot\Article\MainBlockExecutor;
-
 /**
  * @template TBlock of Block
  */

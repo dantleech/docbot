@@ -2,7 +2,6 @@
 
 namespace DTL\Docbot\Article;
 
-use DTL\Docbot\Article\Article;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
 

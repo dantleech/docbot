@@ -29,5 +29,13 @@
         "phpactor/container": "^3.0",
         "twig/twig": "^3.10",
         "symfony/filesystem": "^7.1"
+    },
+    "scripts": {
+        "integrate": [
+            "vendor/bin/phpstan analyse",
+            "vendor/bin/php-cs-fixer fix",
+            "vendor/bin/phpunit",
+            "bin/docbot execute docs"
+        ]
     }
 }

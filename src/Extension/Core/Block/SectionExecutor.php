@@ -7,8 +7,6 @@ use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\BlockExecutor;
 use DTL\Docbot\Article\Block\NoBlockData;
 use DTL\Docbot\Article\MainBlockExecutor;
-use DTL\Docbot\Article\ProjectFilesystem;
-use DTL\Docbot\Environment\Workspace;
 
 /**
  * @implements BlockExecutor<SectionBlock>

@@ -48,6 +48,7 @@ final class AssertContainsExecutor implements BlockExecutor
     }
 
     /**
+     * @param class-string $string
      * @return string[]
      */
     private function properties(string $string): array
