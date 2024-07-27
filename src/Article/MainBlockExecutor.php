@@ -3,6 +3,8 @@
 namespace DTL\Docbot\Article;
 
 use DTL\Docbot\Article\Error\AssertionFailed;
+use DTL\Docbot\Dispatcher\ClosureListenerProvider;
+use DTL\Docbot\Dispatcher\EventDispatcher;
 use DTL\Docbot\Event\BlockPostExecute;
 use DTL\Docbot\Event\BlockPreExecute;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -24,6 +26,20 @@ final class MainBlockExecutor
             $this->executors[$executor::for()] = $executor;
         }
     }
+
+    /**
+     * @param list<BlockExecutor<Block>> $executors
+     */
+    public static function create(array $executors = [], ?BlockDataBuffer $buffer = null, ?EventDispatcherInterface $dispatcher = null): self
+    {
+        return new self(
+            $executors,
+            $buffer ?? new BlockDataBuffer(),
+            $dispatcher ?? new EventDispatcher(new ClosureListenerProvider(fn () => [])),
+        );
+
+    }
+
 
     public function execute(Block $block): BlockData
     {

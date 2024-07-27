@@ -6,6 +6,9 @@ use DTL\Docbot\Article\Block;
 
 final class ShellBlock implements Block
 {
+    /**
+     * @param ?array<string,string> $env
+     */
     public function __construct(
         public string $content,
         public int $assertExitCode = 0,
