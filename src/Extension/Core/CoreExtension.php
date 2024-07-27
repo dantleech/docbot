@@ -32,6 +32,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use RuntimeException;
 use Symfony\Component\Console\Application;
+use Symfony\Component\Console\CommandLoader\CommandLoaderInterface;
 use Symfony\Component\Console\CommandLoader\ContainerCommandLoader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\ConsoleOutput;
@@ -48,7 +49,7 @@ final class CoreExtension implements Extension
     public const PARAM_FORMAT = 'core.output_format';
     public const PARAM_OUTPUT_PATH = 'core.output_path';
     public const PARAM_WORKSPACE_DIR = 'core.workspace_dir';
-    const TAG_LISTENER_PROVIDER = 'core.listener_provider';
+    public const TAG_LISTENER_PROVIDER = 'core.listener_provider';
 
     public function load(ContainerBuilder $container): void
     {
@@ -87,8 +88,7 @@ final class CoreExtension implements Extension
             return (new ConsoleOutput())->getErrorOutput();
         });
 
-        $container->register(Application::class, function (Container $container): Application {
-            $app = new Application('exedoc');
+        $container->register(CommandLoaderInterface::class, function (Container $container): CommandLoaderInterface {
             $map = [];
             foreach ($container->getServiceIdsForTag(self::TAG_CONSOLE_COMMAND) as $serviceId => $_) {
                 if (!class_exists($serviceId)) {
@@ -112,9 +112,7 @@ final class CoreExtension implements Extension
                 }
                 $map[$name] = $serviceId;
             }
-            $loader = new ContainerCommandLoader($container, $map);
-            $app->setCommandLoader($loader);
-            return $app;
+            return new ContainerCommandLoader($container, $map);
         });
         $container->register(ExecuteCommand::class, function (Container $container): ExecuteCommand {
             return new ExecuteCommand(

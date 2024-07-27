@@ -13,10 +13,6 @@ use DTL\Docbot\Article\MainBlockExecutor;
  */
 final class SectionExecutor implements BlockExecutor
 {
-    public function __construct()
-    {
-    }
-
     public static function for(): string
     {
         return SectionBlock::class;

@@ -29,7 +29,8 @@
         "phpactor/container": "^3.0",
         "twig/twig": "^3.10",
         "symfony/filesystem": "^7.1",
-        "psr/event-dispatcher": "^1.0"
+        "psr/event-dispatcher": "^1.0",
+        "symfony/error-handler": "^7.1"
     },
     "scripts": {
         "integrate": [

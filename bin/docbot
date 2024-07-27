@@ -2,7 +2,8 @@
 <?php
 
 use DTL\Docbot\Docbot;
+use Symfony\Component\ErrorHandler\ErrorHandler;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-(new Docbot((string)getcwd()))->application()->run();
+(new Docbot())->run();
