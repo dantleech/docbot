@@ -13,7 +13,7 @@ use Symfony\Component\Process\Process;
 /**
  * @implements BlockExecutor<ShellBlock>
  */
-final class ShellBlockExecutor implements BlockExecutor
+final class ShellExecutor implements BlockExecutor
 {
     public function __construct(private Workspace $workspace)
     {
@@ -26,7 +26,7 @@ final class ShellBlockExecutor implements BlockExecutor
 
     public function execute(MainBlockExecutor $executor, Block $block): BlockData
     {
-        $process = Process::fromShellCommandline($block->content, $this->workspace->path());
+        $process = Process::fromShellCommandline($block->content, $this->workspace->path(), env: $block->env);
         $exitCode = $process->run();
 
         if ($exitCode !== $block->assertExitCode) {

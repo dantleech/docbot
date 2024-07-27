@@ -60,7 +60,7 @@ return Article::create('hello_world', 'Hello World', [
 ```
 Now let's generate some docs!
 ```shell
-$ ../bin/docbot execute docs
+$ docbot execute docs
 Docbot 0.x by Daniel Leech
 Workspace: /home/daniel/www/dantleech/exedoc/workspace/workspace
 
@@ -173,7 +173,9 @@ return Article::create('../README', 'DTL Docbot', [
             PHP,
         ),
         'Now let\'s generate some docs!',
-        new ShellBlock('../bin/docbot execute docs'),
+        new ShellBlock('docbot execute docs', env: [
+            'PATH' => getenv('PATH', true).':'.__DIR__.'/../bin',
+        ]),
         'We can view the output...',
         new TextBlock(
             'Now we can view the generated document in `%path%`:',

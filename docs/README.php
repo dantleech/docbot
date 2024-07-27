@@ -62,7 +62,9 @@ return Article::create('../README', 'DTL Docbot', [
             PHP,
         ),
         'Now let\'s generate some docs!',
-        new ShellBlock('../bin/docbot execute docs'),
+        new ShellBlock('docbot execute docs', env: [
+            'PATH' => getenv('PATH', true).':'.__DIR__.'/../bin',
+        ]),
         'We can view the output...',
         new TextBlock(
             'Now we can view the generated document in `%path%`:',

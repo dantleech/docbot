@@ -15,7 +15,7 @@ use DTL\Docbot\Environment\Workspace;
 use DTL\Docbot\Extension\Core\Block\AssertContainsExecutor;
 use DTL\Docbot\Extension\Core\Block\CreateFileExecutor;
 use DTL\Docbot\Extension\Core\Block\SectionExecutor;
-use DTL\Docbot\Extension\Core\Block\ShellBlockExecutor;
+use DTL\Docbot\Extension\Core\Block\ShellExecutor;
 use DTL\Docbot\Extension\Core\Block\ShowFileExecutor;
 use DTL\Docbot\Extension\Core\Block\TextBlockExecutor;
 use DTL\Docbot\Extension\Core\Console\ExecuteCommand;
@@ -168,8 +168,8 @@ final class CoreExtension implements Extension
         }, [
             self::TAG_BLOCK_EXECUTOR => [],
         ]);
-        $container->register(ShellBlockExecutor::class, function (Container $container) {
-            return new ShellBlockExecutor($container->get(Workspace::class));
+        $container->register(ShellExecutor::class, function (Container $container) {
+            return new ShellExecutor($container->get(Workspace::class));
         }, [
             self::TAG_BLOCK_EXECUTOR => [],
         ]);
