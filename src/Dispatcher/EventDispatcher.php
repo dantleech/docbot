@@ -16,7 +16,7 @@ use Psr\EventDispatcher\StoppableEventInterface;
 /**
  * @internal
  */
-class EventDispatcher implements EventDispatcherInterface
+final class EventDispatcher implements EventDispatcherInterface
 {
     public function __construct(private ListenerProviderInterface $listenerProvider)
     {

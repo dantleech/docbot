@@ -44,9 +44,8 @@ $ {{ block.content }}
 {% endblock %}
 
 {% block core_show_file %}
-`{{ block.path }}`
-
 ``````{{ block.language }}
+# {{ block.path }}
 {{ data.contents }}
 ``````
 {% endblock %}

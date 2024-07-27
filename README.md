@@ -61,12 +61,13 @@ $ ../bin/docbot execute docs
 Docbot 0.x by Daniel Leech
 Workspace: /home/daniel/www/dantleech/exedoc/workspace/workspace
 
-Hello World
-===========
-
-Executing article:
-
-=> Section "Running a shell command" with 5 blocks
+[    core_article] Article "Hello World" with 1 steps
+[    core_section] Section "Running a shell command" with 5 blocks
+[       core_text] By default the documentation operates in a clean directory,let's create a file:
+[core_create_file] Creating text file at "hello_world.txt"
+[       core_text] Now we can execute a shell command and show the contents of that file:
+[      core_shell] Cat hello_world.txt
+[       core_text] Note that the output from the shell command is shown.
 
 Rendering article:
 
@@ -74,9 +75,8 @@ Written 402 bytes to /home/daniel/www/dantleech/exedoc/workspace/docs/hello_worl
 
 ```
 We can view the output...
-`docs/hello_world.md`
-
 ``````text
+# docs/hello_world.md
 Hello World
 ===========
 
@@ -103,9 +103,8 @@ Inception
 ---------
 
 Oh no! It's a trap! We are stuck code inception 😾:
-`../docs/README.php`
-
 ``````php
+# ../docs/README.php
 <?php
 
 use DTL\Docbot\Article\Article;

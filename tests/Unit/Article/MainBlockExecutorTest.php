@@ -19,10 +19,10 @@ final class MainBlockExecutorTest extends TestCase
     public function testDisaptchesEventBeforeAndAfter(): void
     {
         $events = [];
-        $dispatcher = new EventDispatcher(new AggregateListenerProvider([ 
+        $dispatcher = new EventDispatcher(new AggregateListenerProvider([
             new ClosureListenerProvider(function (object $event) use (&$events): Generator {
                 $events[] = $event;
-                yield function () {};
+                yield function (): void {};
             }),
         ]));
         $exampleBlock = new ExampleBlock();
@@ -42,4 +42,3 @@ final class MainBlockExecutorTest extends TestCase
 
     }
 }
-

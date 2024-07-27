@@ -63,7 +63,7 @@ return Article::create('../README', 'DTL Docbot', [
         new ShowFileBlock('docs/hello_world.md', 'text'),
     ]),
     new SectionBlock('Inception', [
-        'Oh no! It\'s a trap! We are stuck code inception 😾:',
+        'Oh no! It\'s a trap 😱! You\'re in code inception:',
         new ShowFileBlock('../docs/README.php', 'php'),
     ]),
 ]);

@@ -55,17 +55,7 @@ final class ExecuteCommand extends Command
         $this->workspace->clean();
 
         foreach ($articles as $article) {
-            $err->writeln(sprintf('<info>%s</>', $article->title));
-            $err->writeln(sprintf('<info>%s</>', str_repeat('=', mb_strlen($article->title))));
-
-            $err->writeln('');
-            $err->writeln('Executing article:');
-            $err->writeln('');
-
-            foreach ($article->blocks as $block) {
-                $err->writeln('<comment>=> </>' . $block->describe());
-                $this->executor->execute($block);
-            }
+            $this->executor->execute($article);
         }
 
         $err->writeln('');

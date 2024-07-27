@@ -2,12 +2,15 @@
 
 namespace DTL\Docbot\Extension\Core;
 
+use DTL\Docbot\Article\ArticleExecutor;
 use DTL\Docbot\Article\ArticleFinder;
 use DTL\Docbot\Article\ArticleRenderer;
 use DTL\Docbot\Article\ArticleWriter;
 use DTL\Docbot\Article\BlockDataBuffer;
 use DTL\Docbot\Article\BlockExecutor;
 use DTL\Docbot\Article\MainBlockExecutor;
+use DTL\Docbot\Dispatcher\AggregateListenerProvider;
+use DTL\Docbot\Dispatcher\EventDispatcher;
 use DTL\Docbot\Environment\Workspace;
 use DTL\Docbot\Extension\Core\Block\AssertContainsExecutor;
 use DTL\Docbot\Extension\Core\Block\CreateFileExecutor;
@@ -16,6 +19,7 @@ use DTL\Docbot\Extension\Core\Block\ShellBlockExecutor;
 use DTL\Docbot\Extension\Core\Block\ShowFileExecutor;
 use DTL\Docbot\Extension\Core\Block\TextBlockExecutor;
 use DTL\Docbot\Extension\Core\Console\ExecuteCommand;
+use DTL\Docbot\Extension\Core\Progress\ProgressListener;
 use DTL\Docbot\Extension\Core\Renderer\TwigBlockRenderer;
 use DTL\Docbot\Extension\Core\Renderer\TwigExtension;
 use DTL\Docbot\Extension\Core\Renderer\TwigRenderer;
@@ -23,10 +27,14 @@ use Phpactor\Container\Container;
 use Phpactor\Container\ContainerBuilder;
 use Phpactor\Container\Extension;
 use Phpactor\MapResolver\Resolver;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\EventDispatcher\ListenerProviderInterface;
 use RuntimeException;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\CommandLoader\ContainerCommandLoader;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -39,6 +47,7 @@ final class CoreExtension implements Extension
     public const PARAM_FORMAT = 'core.output_format';
     public const PARAM_OUTPUT_PATH = 'core.output_path';
     public const PARAM_WORKSPACE_DIR = 'core.workspace_dir';
+    const TAG_LISTENER_PROVIDER = 'core.listener_provider';
 
     public function load(ContainerBuilder $container): void
     {
@@ -46,6 +55,8 @@ final class CoreExtension implements Extension
         $this->registerRunner($container);
         $this->registerRenderer($container);
         $this->registerBlockExecutors($container);
+        $this->registerDispatcher($container);
+        $this->registerProgress($container);
     }
 
     public function configure(Resolver $schema): void
@@ -71,6 +82,10 @@ final class CoreExtension implements Extension
 
     private function registerConsole(ContainerBuilder $container): void
     {
+        $container->register(OutputInterface::class, function () {
+            return (new ConsoleOutput())->getErrorOutput();
+        });
+
         $container->register(Application::class, function (Container $container): Application {
             $app = new Application('exedoc');
             $map = [];
@@ -123,7 +138,8 @@ final class CoreExtension implements Extension
 
             return new MainBlockExecutor(
                 $executors,
-                $container->get(BlockDataBuffer::class)
+                $container->get(BlockDataBuffer::class),
+                $container->get(EventDispatcherInterface::class),
             );
         });
         $container->register(BlockDataBuffer::class, function (Container $container) {
@@ -176,6 +192,11 @@ final class CoreExtension implements Extension
         }, [
             self::TAG_BLOCK_EXECUTOR => [],
         ]);
+        $container->register(ArticleExecutor::class, function (Container $container) {
+            return new ArticleExecutor();
+        }, [
+            self::TAG_BLOCK_EXECUTOR => [],
+        ]);
     }
 
     private function registerRenderer(ContainerBuilder $container): void
@@ -211,5 +232,25 @@ final class CoreExtension implements Extension
 
             return $env;
         });
+    }
+
+    private function registerDispatcher(ContainerBuilder $container): void
+    {
+        $container->register(EventDispatcherInterface::class, function (Container $container) {
+            $providers = [];
+            foreach ($container->getServiceIdsForTag(self::TAG_LISTENER_PROVIDER) as $id => $_) {
+                $providers[] = $container->expect($id, ListenerProviderInterface::class);
+            }
+            return new EventDispatcher(new AggregateListenerProvider($providers));
+        });
+    }
+
+    private function registerProgress(ContainerBuilder $container): void
+    {
+        $container->register(ProgressListener::class, function (Container $container) {
+            return new ProgressListener($container->get(OutputInterface::class));
+        }, [
+            self::TAG_LISTENER_PROVIDER => [],
+        ]);
     }
 }

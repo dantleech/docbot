@@ -18,7 +18,7 @@ final class ClosureListenerProvider implements ListenerProviderInterface
     }
 
     /**
-     * @return iterable<ListenerProviderInterface>
+     * @return iterable<callable>
      */
     public function getListenersForEvent($event): iterable
     {
