@@ -3,6 +3,9 @@
 namespace DTL\Docbot\Article;
 
 use DTL\Docbot\Article\Error\AssertionFailed;
+use DTL\Docbot\Event\BlockPostExecute;
+use DTL\Docbot\Event\BlockPreExecute;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use RuntimeException;
 
 final class MainBlockExecutor
@@ -15,7 +18,7 @@ final class MainBlockExecutor
     /**
      * @param list<BlockExecutor<Block>> $executors
      */
-    public function __construct(array $executors, private BlockDataBuffer $buffer)
+    public function __construct(array $executors, private BlockDataBuffer $buffer, private EventDispatcherInterface $dispatcher)
     {
         foreach ($executors as $executor) {
             $this->executors[$executor::for()] = $executor;
@@ -34,7 +37,9 @@ final class MainBlockExecutor
         $executor = $this->executors[$block::class];
 
         try {
+            $this->dispatcher->dispatch(new BlockPreExecute($block));
             $blockData = $executor->execute($this, $block);
+            $this->dispatcher->dispatch(new BlockPostExecute($block, $blockData));
             $this->buffer->register($block, $blockData);
             return $blockData;
         } catch (AssertionFailed $failed) {

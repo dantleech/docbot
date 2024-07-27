@@ -28,7 +28,8 @@
         "symfony/finder": "^7.1",
         "phpactor/container": "^3.0",
         "twig/twig": "^3.10",
-        "symfony/filesystem": "^7.1"
+        "symfony/filesystem": "^7.1",
+        "psr/event-dispatcher": "^1.0"
     },
     "scripts": {
         "integrate": [
