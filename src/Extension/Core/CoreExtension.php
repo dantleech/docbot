@@ -23,6 +23,7 @@ use DTL\Docbot\Extension\Core\Progress\ProgressListener;
 use DTL\Docbot\Extension\Core\Renderer\TwigBlockRenderer;
 use DTL\Docbot\Extension\Core\Renderer\TwigExtension;
 use DTL\Docbot\Extension\Core\Renderer\TwigRenderer;
+use DTL\Docbot\Renderer\TokenReplacer;
 use Phpactor\Container\Container;
 use Phpactor\Container\ContainerBuilder;
 use Phpactor\Container\Extension;
@@ -227,11 +228,16 @@ final class CoreExtension implements Extension
 
             $env->addExtension(new TwigExtension(
                 $container->get(TwigBlockRenderer::class),
+                $container->get(TokenReplacer::class),
                 $container->parameter(self::PARAM_FORMAT)->string(),
             ));
 
             return $env;
         });
+        $container->register(TokenReplacer::class, function (Container $container): TokenReplacer {
+            return new TokenReplacer();
+        });
+
     }
 
     private function registerDispatcher(ContainerBuilder $container): void

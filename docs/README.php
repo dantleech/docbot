@@ -5,6 +5,7 @@ use DTL\Docbot\Extension\Core\Block\CreateFileBlock;
 use DTL\Docbot\Extension\Core\Block\SectionBlock;
 use DTL\Docbot\Extension\Core\Block\ShellBlock;
 use DTL\Docbot\Extension\Core\Block\ShowFileBlock;
+use DTL\Docbot\Extension\Core\Block\TextBlock;
 
 return Article::create('../README', 'DTL Docbot', [
     <<<TEXT
@@ -44,12 +45,15 @@ return Article::create('../README', 'DTL Docbot', [
             use DTL\Docbot\Extension\Core\Block\CreateFileBlock;
             use DTL\Docbot\Extension\Core\Block\SectionBlock;
             use DTL\Docbot\Extension\Core\Block\ShellBlock;
+            use DTL\Docbot\Extension\Core\Block\TextBlock;
 
             return Article::create('hello_world', 'Hello World', [
                 new SectionBlock('Running a shell command', [
-                    'By default the documentation operates in a clean directory,' .
-                    'let\'s create a file:',
-                    new CreateFileBlock('hello_world.txt', language: 'text', content: 'Hello World!'),
+                    new TextBlock(
+                        'By default the documentation operates in a clean directory. ' .
+                        'Create the file `%path%`:',
+                        context: new CreateFileBlock('hello_world.txt', language: 'text', content: 'Hello World!'),
+                    ),
                     'Now we can execute a shell command and show the contents of that file:',
                     new ShellBlock('cat hello_world.txt'),
                     'Note that the output from the shell command is shown.',
@@ -60,10 +64,15 @@ return Article::create('../README', 'DTL Docbot', [
         'Now let\'s generate some docs!',
         new ShellBlock('../bin/docbot execute docs'),
         'We can view the output...',
-        new ShowFileBlock('docs/hello_world.md', 'text'),
+        new TextBlock(
+            'Now we can view the generated document in `%path%`:',
+            context: new ShowFileBlock('docs/hello_world.md', 'text'),
+        ),
     ]),
     new SectionBlock('Inception', [
-        'Oh no! It\'s a trap 😱! You\'re in code inception:',
-        new ShowFileBlock('../docs/README.php', 'php'),
+        new TextBlock(
+            'Oh no! It\'s a trap 😱! You\'re in code inception, the source for this file is in `%path%`:',
+            context: new ShowFileBlock('../docs/README.php', 'php'),
+        ),
     ]),
 ]);

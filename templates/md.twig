@@ -30,7 +30,8 @@ $ {{ block.content }}
 {% endblock %}
 
 {% block core_text %}
-{{ block.text }}
+{{ block.text|sub_block_tokens(block.context) }}
+{% if block.context %}{{ render_block(block.context) }}{% endif %}
 {% endblock %}
 
 {% block core_section %}

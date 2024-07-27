@@ -6,7 +6,7 @@ use DTL\Docbot\Article\Block;
 
 final class TextBlock implements Block
 {
-    public function __construct(public  string $text)
+    public function __construct(public  string $text, public ?Block $context = null)
     {
     }
 

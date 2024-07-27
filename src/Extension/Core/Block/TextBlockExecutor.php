@@ -9,7 +9,7 @@ use DTL\Docbot\Article\Block\NoBlockData;
 use DTL\Docbot\Article\MainBlockExecutor;
 
 /**
- * @implements BlockExecutor<Block>
+ * @implements BlockExecutor<TextBlock>
  */
 final class TextBlockExecutor implements BlockExecutor
 {
@@ -20,6 +20,10 @@ final class TextBlockExecutor implements BlockExecutor
 
     public function execute(MainBlockExecutor $executor, Block $block): BlockData
     {
+        if ($block->context !== null) {
+            $executor->execute($block->context);
+        }
+
         return new NoBlockData();
     }
 }
