@@ -3,7 +3,7 @@
 namespace DTL\Docbot\Extension\Core\Renderer;
 
 use DTL\Docbot\Article\Block;
-use DTL\Docbot\Article\Block\BlockRenderer;
+use DTL\Docbot\Article\BlockRenderer;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;

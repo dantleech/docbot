@@ -1,6 +1,6 @@
 <?php
 
-namespace DTL\Docbot\Article\Block;
+namespace DTL\Docbot\Article;
 
 use DTL\Docbot\Article\Block;
 use DTL\Docbot\Article\BlockData;

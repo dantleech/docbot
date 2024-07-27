@@ -4,7 +4,6 @@ namespace DTL\Docbot\Extension\Core\Renderer;
 
 use DTL\Docbot\Article\Article;
 use DTL\Docbot\Article\ArticleRenderer;
-use DTL\Docbot\Article\Block\BlockRenderer;
 use DTL\Docbot\Article\RenderedArticle;
 use Twig\Environment;
 

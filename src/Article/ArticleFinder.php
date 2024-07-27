@@ -8,10 +8,6 @@ use Symfony\Component\Finder\Finder;
 
 final class ArticleFinder
 {
-    public function __construct()
-    {
-    }
-
     public function findInPath(string $path): Articles
     {
         $finder = new Finder();
@@ -23,7 +19,7 @@ final class ArticleFinder
 
             if (!$article instanceof Article) {
                 throw new RuntimeException(sprintf(
-                    'Article "%s" should return an instanceof Article but got: %s',
+                    'Article "%s" should return an instance of Article but got: %s',
                     $file,
                     get_debug_type($article)
                 ));

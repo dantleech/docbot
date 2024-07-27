@@ -102,7 +102,7 @@ Note that the output from the shell command is shown.
 Inception
 ---------
 
-Oh no! We are stuck code inception 😾:
+Oh no! It's a trap! We are stuck code inception 😾:
 `../docs/README.php`
 
 ``````php
@@ -171,7 +171,7 @@ return Article::create('../README', 'DTL Docbot', [
         new ShowFileBlock('docs/hello_world.md', 'text'),
     ]),
     new SectionBlock('Inception', [
-        'Oh no! We are stuck code inception 😾:',
+        'Oh no! It\'s a trap! We are stuck code inception 😾:',
         new ShowFileBlock('../docs/README.php', 'php'),
     ]),
 ]);

@@ -6,7 +6,7 @@ use DTL\Docbot\Article\ArticleFinder;
 use DTL\Docbot\Article\ArticleRenderer;
 use DTL\Docbot\Article\ArticleWriter;
 use DTL\Docbot\Article\BlockDataBuffer;
-use DTL\Docbot\Article\Block\BlockExecutor;
+use DTL\Docbot\Article\BlockExecutor;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Environment\Workspace;
 use DTL\Docbot\Extension\Core\Block\AssertContainsExecutor;
@@ -33,13 +33,13 @@ use Twig\Loader\FilesystemLoader;
 final class CoreExtension implements Extension
 {
     public const VERSION = '0.x';
+
     public const TAG_BLOCK_EXECUTOR = 'core.block_executor';
     public const TAG_CONSOLE_COMMAND = 'core.console.command';
     public const PARAM_FORMAT_PATHS = 'core.format.paths';
     public const PARAM_FORMAT = 'core.output_format';
     public const PARAM_OUTPUT_PATH = 'core.output_path';
-    private const PARAM_WORKSPACE_DIR = 'core.workspace_dir';
-
+    public const PARAM_WORKSPACE_DIR = 'core.workspace_dir';
 
     public function load(ContainerBuilder $container): void
     {
@@ -195,8 +195,8 @@ final class CoreExtension implements Extension
         });
 
         $container->register(Environment::class, function (Container $container) {
-            /** @var string[] */
-            $paths = $container->parameter(self::PARAM_FORMAT_PATHS)->value();
+            $paths = $container->parameter(self::PARAM_FORMAT_PATHS)->listOfString();
+
             $env = new Environment(
                 new FilesystemLoader($paths),
                 [
@@ -204,10 +204,12 @@ final class CoreExtension implements Extension
                     'strict_variables' => true,
                 ],
             );
+
             $env->addExtension(new TwigExtension(
                 $container->get(TwigBlockRenderer::class),
                 $container->parameter(self::PARAM_FORMAT)->string(),
             ));
+
             return $env;
         });
     }

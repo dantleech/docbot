@@ -4,7 +4,7 @@ namespace DTL\Docbot\Extension\Core\Block;
 
 use DTL\Docbot\Article\Block;
 use DTL\Docbot\Article\BlockData;
-use DTL\Docbot\Article\Block\BlockExecutor;
+use DTL\Docbot\Article\BlockExecutor;
 use DTL\Docbot\Article\Block\NoBlockData;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Article\ProjectFilesystem;
