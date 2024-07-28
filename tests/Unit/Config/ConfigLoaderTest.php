@@ -58,4 +58,3 @@ final class ConfigLoaderTest extends IntegrationTestCase
         return (new ConfigLoader($this->workspace()->path()))->load();
     }
 }
-

@@ -6,6 +6,9 @@ use DTL\Docbot\Extension\Core\Block\TextBlock;
 
 final class Article implements Block
 {
+    public int $index = 0;
+
+
     /**
      * @param Block[] $blocks
      */
@@ -13,11 +16,19 @@ final class Article implements Block
     {
     }
 
+    public function setIndex(int $index): void
+    {
+        $this->index = $index;
+    }
+
     /**
      * @param list<string|Block> $blocks
      */
-    public static function create(string $id, string $title, array $blocks): Article
+    public static function create(string $id, ?string $title = null, array $blocks = []): Article
     {
+        if ($title === null) {
+            $title = $id;
+        }
         return new self($id, $title, array_map(function (string|Block $block) {
             if (is_string($block)) {
                 return new TextBlock($block);
