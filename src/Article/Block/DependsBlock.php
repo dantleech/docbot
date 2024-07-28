@@ -11,7 +11,7 @@ use DTL\Docbot\Article\MainBlockExecutor;
 /**
  * @implements BlockExecutor<self>
  */
-final readonly class DependsOnBlock implements Block, BlockExecutor
+final readonly class DependsBlock implements Block, BlockExecutor
 {
     public function __construct(public string $id)
     {
@@ -34,6 +34,7 @@ final readonly class DependsOnBlock implements Block, BlockExecutor
 
     public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
+        $executor->execute($articles, $articles->get($block->id));
         return new NoBlockData();
     }
 }

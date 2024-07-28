@@ -3,7 +3,7 @@
 namespace DTL\Docbot\Article;
 
 use ArrayIterator;
-use DTL\Docbot\Article\Block\DependsOnBlock;
+use DTL\Docbot\Article\Block\DependsBlock;
 use IteratorAggregate;
 use RuntimeException;
 use SplObjectStorage;
@@ -133,7 +133,7 @@ final class Articles implements IteratorAggregate
     {
         $deps = [];
         foreach ($article->blocks as $block) {
-            if ($block instanceof DependsOnBlock) {
+            if ($block instanceof DependsBlock) {
                 $deps[] = $this->get($block->id);
             }
         }
@@ -141,7 +141,7 @@ final class Articles implements IteratorAggregate
         return $deps;
     }
 
-    private function get(string $id): Article
+    public function get(string $id): Article
     {
         if (!isset($this->articles[$id])) {
             throw new RuntimeException(sprintf(

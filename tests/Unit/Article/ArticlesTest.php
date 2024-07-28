@@ -4,7 +4,7 @@ namespace DTL\Docbot\Tests\Unit\Article;
 
 use DTL\Docbot\Article\Article;
 use DTL\Docbot\Article\Articles;
-use DTL\Docbot\Article\Block\DependsOnBlock;
+use DTL\Docbot\Article\Block\DependsBlock;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
@@ -14,15 +14,15 @@ final class ArticlesTest extends TestCase
     {
         $articles = new Articles([
             Article::create('l1c2', blocks: [
-                new DependsOnBlock('r1'),
+                new DependsBlock('r1'),
             ]),
             Article::create('l2c1', blocks: [
-                new DependsOnBlock('l1c1'),
+                new DependsBlock('l1c1'),
             ]),
             Article::create('r1', blocks: []),
             Article::create('r2', blocks: []),
             Article::create('l1c1', blocks: [
-                new DependsOnBlock('r1'),
+                new DependsBlock('r1'),
             ]),
         ]);
 
@@ -37,13 +37,13 @@ final class ArticlesTest extends TestCase
 
         $articles = new Articles([
             Article::create('l2c1', blocks: [
-                new DependsOnBlock('l1c1'),
+                new DependsBlock('l1c1'),
             ]),
             Article::create('r1', blocks: [
-                new DependsOnBlock('l2c1'),
+                new DependsBlock('l2c1'),
             ]),
             Article::create('l1c1', blocks: [
-                new DependsOnBlock('r1'),
+                new DependsBlock('r1'),
             ]),
         ]);
 
