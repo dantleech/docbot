@@ -2,6 +2,7 @@
 
 namespace DTL\Docbot\Tests\Unit\Extension\Core\Block;
 
+use DTL\Docbot\Article\Articles;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Extension\Core\Block\ShellBlock;
 use DTL\Docbot\Extension\Core\Block\ShellBlockData;
@@ -16,7 +17,7 @@ final class ShellExecutorTest extends IntegrationTestCase
     }
     public function testExecuteWithEnv(): void
     {
-        $data = (new ShellExecutor($this->workspace()))->execute(MainBlockExecutor::create(), new ShellBlock(
+        $data = (new ShellExecutor($this->workspace()))->execute(MainBlockExecutor::create(), new Articles(), new ShellBlock(
             'echo -n $FOO',
             env: [
                 'FOO' => 'bar',

@@ -2,6 +2,7 @@
 
 namespace DTL\Docbot\Extension\Core\Block;
 
+use DTL\Docbot\Article\Articles;
 use DTL\Docbot\Article\Block;
 use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\BlockExecutor;
@@ -23,7 +24,7 @@ final class CreateFileExecutor implements BlockExecutor
         return CreateFileBlock::class;
     }
 
-    public function execute(MainBlockExecutor $executor, Block $block): BlockData
+    public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
         $this->workspace->createFile($block->path, $block->content);
         return new NoBlockData();

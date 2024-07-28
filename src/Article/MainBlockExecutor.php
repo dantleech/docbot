@@ -41,7 +41,7 @@ final class MainBlockExecutor
     }
 
 
-    public function execute(Block $block): BlockData
+    public function execute(Articles $articles, Block $block): BlockData
     {
         if (!isset($this->executors[$block::class])) {
             throw new RuntimeException(sprintf(
@@ -54,7 +54,7 @@ final class MainBlockExecutor
 
         try {
             $this->dispatcher->dispatch(new BlockPreExecute($block));
-            $blockData = $executor->execute($this, $block);
+            $blockData = $executor->execute($this, $articles, $block);
             $this->dispatcher->dispatch(new BlockPostExecute($block, $blockData));
             $this->buffer->register($block, $blockData);
             return $blockData;

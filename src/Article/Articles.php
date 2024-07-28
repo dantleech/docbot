@@ -25,7 +25,7 @@ final class Articles implements IteratorAggregate
     /**
      * @param Article[] $articles
      */
-    public function __construct(array $articles)
+    public function __construct(array $articles = [])
     {
         foreach ($articles as $article) {
             $this->articles[$article->id] = $article;

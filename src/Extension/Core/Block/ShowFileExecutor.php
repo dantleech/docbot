@@ -2,6 +2,7 @@
 
 namespace DTL\Docbot\Extension\Core\Block;
 
+use DTL\Docbot\Article\Articles;
 use DTL\Docbot\Article\Block;
 use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\BlockExecutor;
@@ -22,7 +23,7 @@ final class ShowFileExecutor implements BlockExecutor
         return ShowFileBlock::class;
     }
 
-    public function execute(MainBlockExecutor $executor, Block $block): BlockData
+    public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
         if (!$this->workspace->exists($block->path)) {
             throw new AssertionFailed(sprintf(

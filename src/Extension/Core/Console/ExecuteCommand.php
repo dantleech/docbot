@@ -55,7 +55,7 @@ final class ExecuteCommand extends Command
         $this->workspace->clean();
 
         foreach ($articles as $article) {
-            $this->executor->execute($article);
+            $this->executor->execute($articles, $article);
         }
 
         $err->writeln('');

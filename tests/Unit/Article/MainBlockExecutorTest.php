@@ -2,6 +2,7 @@
 
 namespace DTL\Docbot\Tests\Unit\Article;
 
+use DTL\Docbot\Article\Articles;
 use DTL\Docbot\Article\BlockDataBuffer;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Dispatcher\AggregateListenerProvider;
@@ -30,7 +31,7 @@ final class MainBlockExecutorTest extends TestCase
         /** @phpstan-ignore-next-line */
         (new MainBlockExecutor([
             new ExampleExecutor(),
-        ], $buffer, $dispatcher))->execute($exampleBlock);
+        ], $buffer, $dispatcher))->execute(new Articles(), $exampleBlock);
 
         self::assertCount(2, $events);
         self::assertInstanceOf(BlockPreExecute::class, $events[0]);

@@ -2,6 +2,7 @@
 
 namespace DTL\Docbot\Tests\Unit\Article\Example;
 
+use DTL\Docbot\Article\Articles;
 use DTL\Docbot\Article\Block;
 use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\BlockExecutor;
@@ -18,7 +19,7 @@ final class ExampleExecutor implements BlockExecutor
         return ExampleBlock::class;
     }
 
-    public function execute(MainBlockExecutor $executor, Block $block): BlockData
+    public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
         return new NoBlockData();
     }

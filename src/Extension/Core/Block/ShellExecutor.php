@@ -2,6 +2,7 @@
 
 namespace DTL\Docbot\Extension\Core\Block;
 
+use DTL\Docbot\Article\Articles;
 use DTL\Docbot\Article\Block;
 use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\BlockExecutor;
@@ -24,7 +25,7 @@ final class ShellExecutor implements BlockExecutor
         return ShellBlock::class;
     }
 
-    public function execute(MainBlockExecutor $executor, Block $block): BlockData
+    public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
         $process = Process::fromShellCommandline($block->content, $this->workspace->path(), env: $block->env);
         $exitCode = $process->run();

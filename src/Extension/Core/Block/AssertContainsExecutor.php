@@ -2,6 +2,7 @@
 
 namespace DTL\Docbot\Extension\Core\Block;
 
+use DTL\Docbot\Article\Articles;
 use DTL\Docbot\Article\Block;
 use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\BlockExecutor;
@@ -20,9 +21,9 @@ final class AssertContainsExecutor implements BlockExecutor
         return AssertContainsBlock::class;
     }
 
-    public function execute(MainBlockExecutor $executor, Block $block): BlockData
+    public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
-        $data = $executor->execute($block->block);
+        $data = $executor->execute($articles, $block->block);
 
         if (!property_exists($data, $block->path)) {
             throw new RuntimeException(sprintf(

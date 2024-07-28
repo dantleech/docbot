@@ -15,5 +15,5 @@ interface BlockExecutor
     /**
      * @param TBlock $block
      */
-    public function execute(MainBlockExecutor $executor, Block $block): BlockData;
+    public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData;
 }

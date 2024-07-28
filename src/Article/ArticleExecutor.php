@@ -14,10 +14,10 @@ final class ArticleExecutor implements BlockExecutor
         return Article::class;
     }
 
-    public function execute(MainBlockExecutor $executor, Block $block): BlockData
+    public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
         foreach ($block->blocks as $block) {
-            $executor->execute($block);
+            $executor->execute($articles, $block);
         }
 
         return new NoBlockData();

@@ -2,6 +2,7 @@
 
 namespace DTL\Docbot\Extension\Core\Block;
 
+use DTL\Docbot\Article\Articles;
 use DTL\Docbot\Article\Block;
 use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\BlockExecutor;
@@ -18,10 +19,10 @@ final class TextBlockExecutor implements BlockExecutor
         return TextBlock::class;
     }
 
-    public function execute(MainBlockExecutor $executor, Block $block): BlockData
+    public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
         if ($block->context !== null) {
-            $executor->execute($block->context);
+            $executor->execute($articles, $block->context);
         }
 
         return new NoBlockData();
