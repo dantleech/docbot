@@ -43,14 +43,7 @@ final class MainBlockExecutor
 
     public function execute(Articles $articles, Block $block): BlockData
     {
-        if (!isset($this->executors[$block::class])) {
-            throw new RuntimeException(sprintf(
-                'No executor for block: %s',
-                $block::class
-            ));
-        }
-
-        $executor = $this->executors[$block::class];
+        $executor = $this->resolveExecutor($block);
 
         try {
             $this->dispatcher->dispatch(new BlockPreExecute($block));
@@ -65,5 +58,23 @@ final class MainBlockExecutor
                 ucfirst($failed->getMessage()),
             ), 0, $failed);
         }
+    }
+
+    private function resolveExecutor(Block $block): BlockExecutor
+    {
+        // allow blocks to execute themselves
+        if ($block instanceof BlockExecutor) {
+            return $block;
+        }
+
+        if (!isset($this->executors[$block::class])) {
+            throw new RuntimeException(sprintf(
+                'No executor for block: %s',
+                $block::class
+            ));
+        }
+        
+        $executor = $this->executors[$block::class];
+        return $executor;
     }
 }

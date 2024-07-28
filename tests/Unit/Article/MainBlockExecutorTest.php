@@ -3,7 +3,11 @@
 namespace DTL\Docbot\Tests\Unit\Article;
 
 use DTL\Docbot\Article\Articles;
+use DTL\Docbot\Article\Block;
+use DTL\Docbot\Article\BlockData;
 use DTL\Docbot\Article\BlockDataBuffer;
+use DTL\Docbot\Article\BlockExecutor;
+use DTL\Docbot\Article\Block\NoBlockData;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Dispatcher\AggregateListenerProvider;
 use DTL\Docbot\Dispatcher\ClosureListenerProvider;
@@ -17,6 +21,22 @@ use PHPUnit\Framework\TestCase;
 
 final class MainBlockExecutorTest extends TestCase
 {
+    public function testExecutesAutonomousBlocks(): void
+    {
+        $block = new class() implements Block, BlockExecutor {
+            public function describe(): string { return 'example'; }
+
+            public static function name(): string {return 'example'; }
+            public static function for(): string {return self::class; }
+            public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
+            {
+                return new NoBlockData();
+            }
+        };
+        $data = MainBlockExecutor::create()->execute(new Articles(), $block);
+        self::assertInstanceOf(NoBlockData::class, $data);
+    }
+
     public function testDisaptchesEventBeforeAndAfter(): void
     {
         $events = [];
