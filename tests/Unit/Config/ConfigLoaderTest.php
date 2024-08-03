@@ -2,6 +2,7 @@
 
 namespace DTL\Docbot\Tests\Unit\Config;
 
+use DTL\Docbot\Config\ConfigFile;
 use DTL\Docbot\Config\ConfigLoader;
 use DTL\Docbot\Tests\Unit\IntegrationTestCase;
 use RuntimeException;
@@ -13,24 +14,24 @@ final class ConfigLoaderTest extends IntegrationTestCase
         $this->workspace()->clean();
     }
 
-    public function testReturnEmptyArrayIfNoConfigFound(): void
+    public function testReturnNullIfNoConfigFound(): void
     {
         $config = $this->load();
-        self::assertEquals([], $config);
+        self::assertEquals(null, $config);
     }
 
     public function testLoadConfig(): void
     {
         $this->workspace()->createFile('docbot.json', '{"core.workspace_path":"foo"}');
         $config = $this->load();
-        self::assertEquals(['core.workspace_path' => 'foo'], $config);
+        self::assertEquals(['core.workspace_path' => 'foo'], $config->config);
     }
 
     public function testLoadHiddenConfig(): void
     {
         $this->workspace()->createFile('.docbot.json', '{"core.workspace_path":"foo"}');
         $config = $this->load();
-        self::assertEquals(['core.workspace_path' => 'foo'], $config);
+        self::assertEquals(['core.workspace_path' => 'foo'], $config->config);
     }
 
     public function testExceptionOnInvalidJson(): void
@@ -50,10 +51,8 @@ final class ConfigLoaderTest extends IntegrationTestCase
         $this->workspace()->createFile('docbot.json', '12');
         $this->load();
     }
-    /**
-     * @return array<string,mixed>
-     */
-    private function load(): array
+
+    private function load(): ?ConfigFile
     {
         return (new ConfigLoader($this->workspace()->path()))->load();
     }

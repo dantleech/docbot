@@ -38,7 +38,17 @@ class ExecuteCommandTest extends IntegrationTestCase
         $this->workspace()->createDir('docs');
         $process = $this->exec(['execute']);
         $process->mustRun();
-        dump($process->getErrorOutput());
+    }
+
+    public function testNoArticlesFound(): void
+    {
+        $this->workspace()->createDir('docs');
+        $process = $this->exec(['execute', 'docs']);
+        $process->mustRun();
+        self::assertStringContainsString(
+            'No articles found in path(s): "docs"',
+            $process->getErrorOutput()
+        );
     }
 
     /**

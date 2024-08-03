@@ -57,6 +57,14 @@ final class ExecuteCommand extends Command
         }
         $err = $output->getErrorOutput();
 
+        if (count($articles->ids()) === 0) {
+            $err->writeln(sprintf(
+                'No articles found in path(s): "%s"',
+                implode('", "', $this->finder->paths($path))
+            ));
+            return 0;
+        }
+
         $err->writeln(sprintf('Workspace:</> %s', $this->workspace->path()));
         $err->writeln('');
         $this->workspace->clean();

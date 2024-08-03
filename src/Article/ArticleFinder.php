@@ -18,7 +18,7 @@ final class ArticleFinder
     public function find(?string $path = null): Articles
     {
         $finder = new Finder();
-        $finder->in($path ?? $this->paths());
+        $finder->in($this->paths($path));
         $finder->name('*.php');
         $articles = [];
         foreach ($finder->files() as $file) {
@@ -41,8 +41,11 @@ final class ArticleFinder
     /**
      * @return list<string> 
      */
-    private function paths(): array
+    public function paths(?string $path): array
     {
+        if ($path !== null) {
+            return [$path];
+        }
         if (empty($this->paths)) {
             throw new NoPathsProvided(
                 'You must either configure paths to scan or provide a path explicitly'
