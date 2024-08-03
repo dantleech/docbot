@@ -4,6 +4,6 @@ namespace DTL\Docbot\Article\Exception;
 
 use RuntimeException;
 
-class NoPathsProvided extends RuntimeException
+final class NoPathsProvided extends RuntimeException
 {
 }

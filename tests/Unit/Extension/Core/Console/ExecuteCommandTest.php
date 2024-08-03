@@ -2,19 +2,11 @@
 
 namespace DTL\Docbot\Tests\Unit\Extension\Core\Console;
 
-use DTL\Docbot\Extension\Core\Console\ExecuteCommand;
 use DTL\Docbot\Extension\Core\CoreExtension;
 use DTL\Docbot\Tests\Unit\IntegrationTestCase;
-use PHPUnit\Framework\TestCase;
-use Phpactor\Container\PhpactorContainer;
-use Symfony\Component\Console\Application;
-use Symfony\Component\Console\CommandLoader\CommandLoaderInterface;
-use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Process\Process;
 
-class ExecuteCommandTest extends IntegrationTestCase
+final class ExecuteCommandTest extends IntegrationTestCase
 {
     protected function setUp(): void
     {
@@ -52,7 +44,7 @@ class ExecuteCommandTest extends IntegrationTestCase
     }
 
     /**
-     * @param array $array
+     * @param array<string,mixed> $array
      */
     private function putConfig(array $array): void
     {

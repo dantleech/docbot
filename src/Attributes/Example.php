@@ -12,7 +12,6 @@ final readonly class Example
         public string $title,
         public string $description,
         public Block $block
-    )
-    {
+    ) {
     }
 }

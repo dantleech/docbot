@@ -10,7 +10,7 @@ use DTL\Docbot\Article\MainBlockExecutor;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class DependsBlockTest extends TestCase
+final class DependsBlockTest extends TestCase
 {
     public function testExecutesDependencies(): void
     {

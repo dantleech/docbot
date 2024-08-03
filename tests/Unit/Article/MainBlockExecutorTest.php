@@ -24,10 +24,19 @@ final class MainBlockExecutorTest extends TestCase
     public function testExecutesAutonomousBlocks(): void
     {
         $block = new class() implements Block, BlockExecutor {
-            public function describe(): string { return 'example'; }
+            public function describe(): string
+            {
+                return 'example';
+            }
 
-            public static function name(): string {return 'example'; }
-            public static function for(): string {return self::class; }
+            public static function name(): string
+            {
+                return 'example';
+            }
+            public static function for(): string
+            {
+                return self::class;
+            }
             public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
             {
                 return new NoBlockData();

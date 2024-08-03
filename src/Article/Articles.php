@@ -87,6 +87,19 @@ final class Articles implements IteratorAggregate
         return array_keys($this->articles);
     }
 
+    public function get(string $id): Article
+    {
+        if (!isset($this->articles[$id])) {
+            throw new RuntimeException(sprintf(
+                'Unkown article: "%s", known articles: "%s"',
+                $id,
+                implode('", "', array_keys($this->articles)),
+            ));
+        }
+
+        return $this->articles[$id];
+    }
+
     /**
      * @param SplObjectStorage<Article, string> $markers
      * @param list<Article> $sorted
@@ -139,18 +152,5 @@ final class Articles implements IteratorAggregate
         }
 
         return $deps;
-    }
-
-    public function get(string $id): Article
-    {
-        if (!isset($this->articles[$id])) {
-            throw new RuntimeException(sprintf(
-                'Unkown article: "%s", known articles: "%s"',
-                $id,
-                implode('", "', array_keys($this->articles)),
-            ));
-        }
-
-        return $this->articles[$id];
     }
 }

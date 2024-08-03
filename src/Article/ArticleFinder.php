@@ -39,7 +39,7 @@ final class ArticleFinder
     }
 
     /**
-     * @return list<string> 
+     * @return list<string>
      */
     public function paths(?string $path): array
     {

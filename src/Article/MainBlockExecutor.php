@@ -60,6 +60,9 @@ final class MainBlockExecutor
         }
     }
 
+    /**
+     * @return BlockExecutor<Block>
+     */
     private function resolveExecutor(Block $block): BlockExecutor
     {
         // allow blocks to execute themselves
@@ -73,7 +76,7 @@ final class MainBlockExecutor
                 $block::class
             ));
         }
-        
+
         $executor = $this->executors[$block::class];
         return $executor;
     }

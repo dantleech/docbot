@@ -23,14 +23,14 @@ final class ConfigLoaderTest extends IntegrationTestCase
     public function testLoadConfig(): void
     {
         $this->workspace()->createFile('docbot.json', '{"core.workspace_path":"foo"}');
-        $config = $this->load();
+        $config = $this->mustLoad();
         self::assertEquals(['core.workspace_path' => 'foo'], $config->config);
     }
 
     public function testLoadHiddenConfig(): void
     {
         $this->workspace()->createFile('.docbot.json', '{"core.workspace_path":"foo"}');
-        $config = $this->load();
+        $config = $this->mustLoad();
         self::assertEquals(['core.workspace_path' => 'foo'], $config->config);
     }
 
@@ -50,6 +50,15 @@ final class ConfigLoaderTest extends IntegrationTestCase
 
         $this->workspace()->createFile('docbot.json', '12');
         $this->load();
+    }
+
+    public function mustLoad(): ConfigFile
+    {
+        $config = $this->load();
+        if (null === $config) {
+            $this->fail('Expected config to be found, but it was not');
+        }
+        return $config;
     }
 
     private function load(): ?ConfigFile
