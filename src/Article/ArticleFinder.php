@@ -2,15 +2,23 @@
 
 namespace DTL\Docbot\Article;
 
+use DTL\Docbot\Article\Exception\NoPathsProvided;
 use RuntimeException;
 use Symfony\Component\Finder\Finder;
 
 final class ArticleFinder
 {
-    public function findInPath(string $path): Articles
+    /**
+     * @param list<string> $paths
+     */
+    public function __construct(private array $paths)
+    {
+    }
+
+    public function find(?string $path = null): Articles
     {
         $finder = new Finder();
-        $finder->in($path);
+        $finder->in($path ?? $this->paths());
         $finder->name('*.php');
         $articles = [];
         foreach ($finder->files() as $file) {
@@ -28,5 +36,19 @@ final class ArticleFinder
         }
 
         return new Articles($articles);
+    }
+
+    /**
+     * @return list<string> 
+     */
+    private function paths(): array
+    {
+        if (empty($this->paths)) {
+            throw new NoPathsProvided(
+                'You must either configure paths to scan or provide a path explicitly'
+            );
+        }
+
+        return $this->paths;
     }
 }

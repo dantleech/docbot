@@ -80,4 +80,9 @@ final class Workspace
 
         return $contents;
     }
+
+    public function createDir(string $dir): void
+    {
+        $this->util->mkdir($this->path($dir));
+    }
 }

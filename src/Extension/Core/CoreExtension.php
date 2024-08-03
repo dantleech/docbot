@@ -49,6 +49,7 @@ final class CoreExtension implements Extension
     public const PARAM_OUTPUT_PATH = 'core.output_path';
     public const PARAM_WORKSPACE_DIR = 'core.workspace_dir';
     public const TAG_LISTENER_PROVIDER = 'core.listener_provider';
+    public const PARAM_PATHS = 'core.paths';
 
     public function load(ContainerBuilder $container): void
     {
@@ -74,6 +75,7 @@ final class CoreExtension implements Extension
         $schema->setDefaults([
             self::PARAM_WORKSPACE_DIR => $cwd . '/workspace',
             self::PARAM_OUTPUT_PATH => $cwd . '/docs',
+            self::PARAM_PATHS => [],
             self::PARAM_FORMAT_PATHS => [
                 __DIR__ . '/../../../templates',
             ],
@@ -145,7 +147,7 @@ final class CoreExtension implements Extension
         });
 
         $container->register(ArticleFinder::class, function (Container $container) {
-            return new ArticleFinder();
+            return new ArticleFinder($container->parameter(self::PARAM_PATHS)->listOfString());
         });
 
         $container->register(Workspace::class, function (Container $container) {

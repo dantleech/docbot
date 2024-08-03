@@ -5,6 +5,7 @@ namespace DTL\Docbot\Extension\Core\Console;
 use DTL\Docbot\Article\ArticleFinder;
 use DTL\Docbot\Article\ArticleRenderer;
 use DTL\Docbot\Article\ArticleWriter;
+use DTL\Docbot\Article\Exception\NoPathsProvided;
 use DTL\Docbot\Article\MainBlockExecutor;
 use DTL\Docbot\Environment\Workspace;
 use DTL\Docbot\Extension\Core\CoreExtension;
@@ -31,7 +32,7 @@ final class ExecuteCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('path', InputArgument::REQUIRED, 'Path to tutorials');
+        $this->addArgument('path', InputArgument::OPTIONAL, 'Path to tutorials');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -39,17 +40,23 @@ final class ExecuteCommand extends Command
         assert($output instanceof ConsoleOutput);
 
         $path = $input->getArgument('path');
-        if (!is_string($path)) {
+        if (!is_string($path) && !is_null($path)) {
             throw new RuntimeException(sprintf(
                 'Path is not a string, it is; %s',
                 get_debug_type($path)
             ));
         }
 
-        $articles = $this->finder->findInPath($path);
+        try {
+            $articles = $this->finder->find($path);
+        } catch (NoPathsProvided $noPaths) {
+            throw new NoPathsProvided(sprintf(
+                'You must either provide a path as the first argument or configure them at: `%s`',
+                CoreExtension::PARAM_PATHS
+            ));
+        }
         $err = $output->getErrorOutput();
 
-        $err->writeln(sprintf('Docbot %s by Daniel Leech', CoreExtension::VERSION));
         $err->writeln(sprintf('Workspace:</> %s', $this->workspace->path()));
         $err->writeln('');
         $this->workspace->clean();

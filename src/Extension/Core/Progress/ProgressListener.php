@@ -4,6 +4,7 @@ namespace DTL\Docbot\Extension\Core\Progress;
 
 use DTL\Docbot\Article\Article;
 use DTL\Docbot\Event\BlockPreExecute;
+use DTL\Docbot\Event\UsingConfigFile;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -25,6 +26,15 @@ final class ProgressListener implements ListenerProviderInterface
                     $event->block instanceof Article ? 'info' : 'comment',
                     $event->block::name(),
                     ucfirst($this->oneline($event->block->describe())),
+                ));
+            };
+        }
+
+        if ($event instanceof UsingConfigFile) {
+            yield function (UsingConfigFile $event): void {
+                $this->output->writeln(sprintf(
+                    'Using config: %s',
+                    $event->path
                 ));
             };
         }

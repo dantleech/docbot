@@ -10,10 +10,7 @@ final class ConfigLoader
     {
     }
 
-    /**
-     * @return array<string,mixed>
-     */
-    public function load(): array
+    public function load(): ?ConfigFile
     {
         $candidates = ['docbot', '.docbot'];
 
@@ -26,7 +23,7 @@ final class ConfigLoader
             $contents = file_get_contents($path);
 
             if (false === $contents) {
-                return [];
+                return null;
             }
 
             $data = json_decode($contents, true);
@@ -56,9 +53,9 @@ final class ConfigLoader
                 $config[$key] = $value;
             }
 
-            return $config;
+            return new ConfigFile($path, $config);
         }
 
-        return [];
+        return null;
     }
 }

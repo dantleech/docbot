@@ -20,7 +20,7 @@ final class Articles implements IteratorAggregate
     /**
      * @var Article[]
      */
-    private array $articles;
+    private array $articles = [];
 
     /**
      * @param Article[] $articles
