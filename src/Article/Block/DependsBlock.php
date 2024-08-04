@@ -32,7 +32,7 @@ final readonly class DependsBlock implements Block, BlockExecutor
 
     public static function name(): string
     {
-        return 'core_depends_on';
+        return 'depends_on';
     }
 
     public static function for(): string

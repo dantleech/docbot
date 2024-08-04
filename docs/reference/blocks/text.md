@@ -1,5 +1,5 @@
-Block: `core_text`
-==================
+Block: `text`
+=============
 
 Class: `DTL\Docbot\Extension\Core\Block\TextBlock`
 Parameters:

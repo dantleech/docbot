@@ -1,5 +1,5 @@
-Block: `core_show_file`
-=======================
+Block: `show_file`
+==================
 
 Class: `DTL\Docbot\Extension\Core\Block\ShowFileBlock`
 Parameters:

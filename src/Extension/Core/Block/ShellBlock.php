@@ -32,6 +32,6 @@ final class ShellBlock implements Block
 
     public static function name(): string
     {
-        return 'core_shell';
+        return 'shell';
     }
 }

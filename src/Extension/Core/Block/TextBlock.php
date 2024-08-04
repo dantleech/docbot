@@ -20,6 +20,6 @@ final class TextBlock implements Block
 
     public static function name(): string
     {
-        return 'core_text';
+        return 'text';
     }
 }

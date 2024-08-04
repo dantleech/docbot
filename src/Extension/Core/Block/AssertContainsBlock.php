@@ -25,6 +25,6 @@ final class AssertContainsBlock implements Block
 
     public static function name(): string
     {
-        return 'core_assert_contains';
+        return 'assert_contains';
     }
 }

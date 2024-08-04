@@ -1,5 +1,5 @@
-Block: `core_create_file`
-=========================
+Block: `create_file`
+====================
 
 Class: `DTL\Docbot\Extension\Core\Block\CreateFileBlock`
 Parameters:

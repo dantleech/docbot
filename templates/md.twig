@@ -1,4 +1,4 @@
-{% block core_article %}
+{% block article %}
 {{ block.title }}
 {% for i in range(1,block.title|length) -%}={% endfor %}
 
@@ -8,11 +8,11 @@
 {% endfor %}
 {% endblock %}
 
-{% block core_assert_contains %}
+{% block assert_contains %}
 {{- render_block(block.block) -}}
 {% endblock %}
 
-{% block core_create_file %}
+{% block create_file %}
 Create the following file at `{{ block.path }}`:
 
 ```{{ block.language }}
@@ -20,7 +20,7 @@ Create the following file at `{{ block.path }}`:
 ```
 {% endblock %}
 
-{% block core_shell %}
+{% block shell %}
 ```shell
 $ {{ block.content }}
 {% if data.stdout %}{{ data.stdout }}{% endif %}
@@ -29,12 +29,12 @@ $ {{ block.content }}
 ```
 {% endblock %}
 
-{% block core_text %}
+{% block text %}
 {{ block.text|sub_block_tokens(block.context) }}
 {% if block.context %}{{ render_block(block.context) }}{% endif %}
 {% endblock %}
 
-{% block core_section %}
+{% block section %}
 {{ block.title }}
 {% for i in range(1,block.title|length) -%}-{% endfor %}
 
@@ -44,7 +44,7 @@ $ {{ block.content }}
 {%- endfor -%}
 {% endblock %}
 
-{% block core_show_file %}
+{% block show_file %}
 ``````{{ block.language }}
 # {{ block.path }}
 {{ data.contents }}

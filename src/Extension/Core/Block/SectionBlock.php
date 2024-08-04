@@ -35,6 +35,6 @@ final class SectionBlock implements Block
 
     public static function name(): string
     {
-        return 'core_section';
+        return 'section';
     }
 }

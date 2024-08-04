@@ -22,6 +22,6 @@ final class ShowFileBlock implements Block
 
     public static function name(): string
     {
-        return 'core_show_file';
+        return 'show_file';
     }
 }

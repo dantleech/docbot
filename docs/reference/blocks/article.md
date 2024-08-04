@@ -1,5 +1,5 @@
-Block: `core_article`
-=====================
+Block: `article`
+================
 
 Class: `DTL\Docbot\Article\Article`
 Parameters:

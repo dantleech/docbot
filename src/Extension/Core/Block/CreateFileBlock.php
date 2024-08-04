@@ -37,6 +37,6 @@ final readonly class CreateFileBlock implements Block
 
     public static function name(): string
     {
-        return 'core_create_file';
+        return 'create_file';
     }
 }

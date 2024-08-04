@@ -47,6 +47,6 @@ final class Article implements Block
 
     public static function name(): string
     {
-        return 'core_article';
+        return 'article';
     }
 }

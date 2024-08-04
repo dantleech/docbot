@@ -1,5 +1,5 @@
-Block: `core_assert_contains`
-=============================
+Block: `assert_contains`
+========================
 
 Class: `DTL\Docbot\Extension\Core\Block\AssertContainsBlock`
 Parameters:

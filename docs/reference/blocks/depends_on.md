@@ -1,5 +1,5 @@
-Block: `core_depends_on`
-========================
+Block: `depends_on`
+===================
 
 Class: `DTL\Docbot\Article\Block\DependsBlock`
 Parameters:

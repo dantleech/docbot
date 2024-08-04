@@ -1,5 +1,5 @@
-Block: `core_shell`
-===================
+Block: `shell`
+==============
 
 Class: `DTL\Docbot\Extension\Core\Block\ShellBlock`
 Parameters:

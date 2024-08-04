@@ -64,13 +64,13 @@ $ docbot execute docs
 Docbot 0.x by Daniel Leech
 Workspace: /home/daniel/www/dantleech/exedoc/workspace/workspace
 
-[    core_article] Article "Hello World" with 1 steps
-[    core_section] Section "Running a shell command" with 4 blocks
-[       core_text] By default the documentation operates in a clean directory. Create the file `%path%`:
-[core_create_file] Creating text file at "hello_world.txt" with 12 bytes
-[       core_text] Now we can execute a shell command and show the contents of that file:
-[      core_shell] Cat hello_world.txt
-[       core_text] Note that the output from the shell command is shown.
+[         article] Article "Hello World" with 1 steps
+[         section] Section "Running a shell command" with 4 blocks
+[            text] By default the documentation operates in a clean directory. Create the file `%path%`:
+[     create_file] Creating text file at "hello_world.txt" with 12 bytes
+[            text] Now we can execute a shell command and show the contents of that file:
+[           shell] Cat hello_world.txt
+[            text] Note that the output from the shell command is shown.
 
 Rendering article:
 

@@ -1,5 +1,5 @@
-Block: `core_section`
-=====================
+Block: `section`
+================
 
 Class: `DTL\Docbot\Extension\Core\Block\SectionBlock`
 Parameters:
