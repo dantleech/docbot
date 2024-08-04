@@ -4,6 +4,9 @@ namespace DTL\Docbot\Article;
 
 use DTL\Docbot\Extension\Core\Block\TextBlock;
 
+/**
+ * An article represents a page in the documentation.
+ */
 final class Article implements Block
 {
     public int $index = 0;
@@ -12,7 +15,7 @@ final class Article implements Block
     /**
      * @param Block[] $blocks
      */
-    public function __construct(public string $id, public string $title, public array $blocks)
+    public function __construct(public string $id, public string $title = 'untitled', public array $blocks = [])
     {
     }
 

@@ -11,7 +11,7 @@ final class ArticleFinder
     /**
      * @param list<string> $paths
      */
-    public function __construct(private array $paths)
+    public function __construct(private array $paths, private ArticleProviders $providers)
     {
     }
 
@@ -23,6 +23,14 @@ final class ArticleFinder
         $articles = [];
         foreach ($finder->files() as $file) {
             $article = require $file;
+
+            if ($article instanceof ArticleSource) {
+                $articles = array_merge(
+                    $articles,
+                    $this->providers->forSource($article)->provide($article)->toArray()
+                );
+                continue;
+            }
 
             if (!$article instanceof Article) {
                 throw new RuntimeException(sprintf(

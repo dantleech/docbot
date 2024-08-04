@@ -4,6 +4,10 @@ namespace DTL\Docbot\Extension\Core\Block;
 
 use DTL\Docbot\Article\Block;
 
+/**
+ * Represents a section with a title.
+ * Sections are composed of blocks.
+ */
 final class SectionBlock implements Block
 {
     /**

@@ -3,6 +3,7 @@
 namespace DTL\Docbot;
 
 use DTL\Docbot\Config\ConfigLoader;
+use DTL\Docbot\Extension\ClassInfo\ClassInfoExtension;
 use DTL\Docbot\Extension\Core\CoreExtension;
 use Phpactor\Container\PhpactorContainer;
 use RuntimeException;
@@ -32,6 +33,7 @@ final class Docbot
             }
             $loader = PhpactorContainer::fromExtensions([
                 CoreExtension::class,
+                ClassInfoExtension::class,
             ], $configFile->config ?? [])->get(CommandLoaderInterface::class);
         } catch (Throwable $e) {
             $app->renderThrowable($e, $output);
