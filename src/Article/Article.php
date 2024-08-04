@@ -4,6 +4,9 @@ namespace DTL\Docbot\Article;
 
 use DTL\Docbot\Extension\Core\Block\TextBlock;
 
+/**
+ * An article represents a page in the documentation.
+ */
 final class Article implements Block
 {
     public int $index = 0;

@@ -28,7 +28,11 @@ $ composer require symfony/console
 Running composer update symfony/console
 Loading composer repositories with package information
 Updating dependencies
+Dependency resolution completed in 0.000 seconds
+Analyzed 193 packages to resolve dependencies
+Analyzed 445 rules to resolve dependencies
 Lock file operations: 9 installs, 0 updates, 0 removals
+Installs: symfony/polyfill-mbstring:v1.30.0, symfony/polyfill-intl-normalizer:v1.30.0, symfony/polyfill-intl-grapheme:v1.30.0, symfony/polyfill-ctype:v1.30.0, symfony/string:v7.1.3, symfony/deprecation-contracts:v3.5.0, psr/container:2.0.2, symfony/service-contracts:v3.5.0, symfony/console:v7.1.3
   - Locking psr/container (2.0.2)
   - Locking symfony/console (v7.1.3)
   - Locking symfony/deprecation-contracts (v3.5.0)
@@ -41,7 +45,8 @@ Lock file operations: 9 installs, 0 updates, 0 removals
 Writing lock file
 Installing dependencies from lock file (including require-dev)
 Package operations: 9 installs, 0 updates, 0 removals
-    0 [>---------------------------]    0 [->--------------------------]
+Installs: symfony/polyfill-mbstring:v1.30.0, symfony/polyfill-intl-normalizer:v1.30.0, symfony/polyfill-intl-grapheme:v1.30.0, symfony/polyfill-ctype:v1.30.0, symfony/string:v7.1.3, symfony/deprecation-contracts:v3.5.0, psr/container:2.0.2, symfony/service-contracts:v3.5.0, symfony/console:v7.1.3
+    0 [>---------------------------] < 1 sec    0 [->--------------------------] < 1 sec
   - Installing symfony/polyfill-mbstring (v1.30.0): Extracting archive
   - Installing symfony/polyfill-intl-normalizer (v1.30.0): Extracting archive
   - Installing symfony/polyfill-intl-grapheme (v1.30.0): Extracting archive
@@ -51,8 +56,8 @@ Package operations: 9 installs, 0 updates, 0 removals
   - Installing psr/container (2.0.2): Extracting archive
   - Installing symfony/service-contracts (v3.5.0): Extracting archive
   - Installing symfony/console (v7.1.3): Extracting archive
- 0/9 [>---------------------------]   0%
- 9/9 [============================] 100%
+ 0/9 [>---------------------------]   0% < 1 sec
+ 9/9 [============================] 100% < 1 sec
 Generating autoload files
 8 packages you are using are looking for funding.
 Use the `composer fund` command to find out more!
