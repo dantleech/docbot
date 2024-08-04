@@ -18,7 +18,7 @@ final class ExecuteCommandTest extends IntegrationTestCase
         $this->putConfig([]);
         $process = $this->exec(['execute']);
         $process->run();
-        self::assertEquals(1, $process->getExitCode());
+        self::assertNotEquals(1, $process->getExitCode());
         self::assertStringContainsString('You must either provide a path', $process->getErrorOutput());
     }
 

@@ -12,7 +12,7 @@ final class Article implements Block
     /**
      * @param Block[] $blocks
      */
-    public function __construct(public string $id, public string $title, public array $blocks)
+    public function __construct(public string $id, public string $title = 'untitled', public array $blocks = [])
     {
     }
 

@@ -101,6 +101,14 @@ final class Articles implements IteratorAggregate
     }
 
     /**
+     * @return list<Article>
+     */
+    public function toArray(): array
+    {
+        return array_values($this->articles);
+    }
+
+    /**
      * @param SplObjectStorage<Article, string> $markers
      * @param list<Article> $sorted
      */

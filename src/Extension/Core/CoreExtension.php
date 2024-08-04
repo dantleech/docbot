@@ -4,6 +4,7 @@ namespace DTL\Docbot\Extension\Core;
 
 use DTL\Docbot\Article\ArticleExecutor;
 use DTL\Docbot\Article\ArticleFinder;
+use DTL\Docbot\Article\ArticleProviders;
 use DTL\Docbot\Article\ArticleRenderer;
 use DTL\Docbot\Article\ArticleWriter;
 use DTL\Docbot\Article\BlockDataBuffer;
@@ -50,6 +51,7 @@ final class CoreExtension implements Extension
     public const PARAM_WORKSPACE_DIR = 'core.workspace_dir';
     public const TAG_LISTENER_PROVIDER = 'core.listener_provider';
     public const PARAM_PATHS = 'core.paths';
+    public const TAG_ARTICLE_PROVIDER = 'core.article_provider';
 
     public function load(ContainerBuilder $container): void
     {
@@ -57,6 +59,7 @@ final class CoreExtension implements Extension
         $this->registerRunner($container);
         $this->registerRenderer($container);
         $this->registerBlockExecutors($container);
+        $this->registerArticleProviders($container);
         $this->registerDispatcher($container);
         $this->registerProgress($container);
     }
@@ -147,7 +150,10 @@ final class CoreExtension implements Extension
         });
 
         $container->register(ArticleFinder::class, function (Container $container) {
-            return new ArticleFinder($container->parameter(self::PARAM_PATHS)->listOfString());
+            return new ArticleFinder(
+                $container->parameter(self::PARAM_PATHS)->listOfString(),
+                $container->get(ArticleProviders::class),
+            );
         });
 
         $container->register(Workspace::class, function (Container $container) {
@@ -257,5 +263,17 @@ final class CoreExtension implements Extension
         }, [
             self::TAG_LISTENER_PROVIDER => [],
         ]);
+    }
+
+    private function registerArticleProviders(ContainerBuilder $container): void
+    {
+        $container->register(ArticleProviders::class, function (Container $container) {
+            $providers = [];
+            foreach ($container->getServiceIdsForTag(self::TAG_ARTICLE_PROVIDER) as $serviceId => $_) {
+                $providers[] = $container->get($serviceId);
+            }
+
+            return new ArticleProviders($providers);
+        });
     }
 }
