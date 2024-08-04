@@ -4,6 +4,7 @@ namespace DTL\Docbot\Extension\Core;
 
 use DTL\Docbot\Article\ArticleExecutor;
 use DTL\Docbot\Article\ArticleFinder;
+use DTL\Docbot\Article\ArticleProvider;
 use DTL\Docbot\Article\ArticleProviders;
 use DTL\Docbot\Article\ArticleRenderer;
 use DTL\Docbot\Article\ArticleWriter;
@@ -270,7 +271,7 @@ final class CoreExtension implements Extension
         $container->register(ArticleProviders::class, function (Container $container) {
             $providers = [];
             foreach ($container->getServiceIdsForTag(self::TAG_ARTICLE_PROVIDER) as $serviceId => $_) {
-                $providers[] = $container->get($serviceId);
+                $providers[] = $container->expect($serviceId, ArticleProvider::class);
             }
 
             return new ArticleProviders($providers);

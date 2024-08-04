@@ -15,7 +15,7 @@ final class ClassInfoExtension implements Extension
     {
         $container->register(ClassInfoProvider::class, function (Container $container) {
             return new ClassInfoProvider();
-        }, [ 
+        }, [
             CoreExtension::TAG_ARTICLE_PROVIDER => [],
         ]);
     }

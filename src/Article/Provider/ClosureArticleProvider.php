@@ -5,6 +5,7 @@ namespace DTL\Docbot\Article\Provider;
 use DTL\Docbot\Article\ArticleProvider;
 use DTL\Docbot\Article\ArticleSource;
 use DTL\Docbot\Article\Articles;
+
 /**
  * @implements ArticleProvider<ClosureArticleSource>
  */

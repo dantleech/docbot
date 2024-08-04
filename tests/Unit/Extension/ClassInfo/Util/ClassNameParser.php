@@ -2,14 +2,16 @@
 
 namespace DTL\Docbot\Tests\Unit\Extension\ClassInfo\Util;
 
-class ClassNameParser
+use RuntimeException;
+
+final class ClassNameParser
 {
     public static function parse(string $file): ?string
     {
         $fp = fopen($file, 'r');
 
         if ($fp === false) {
-            throw new \RuntimeException(sprintf('Could not read file %s', $file));
+            throw new RuntimeException(sprintf('Could not read file %s', $file));
         }
 
         $class = $namespace = $buffer = '';

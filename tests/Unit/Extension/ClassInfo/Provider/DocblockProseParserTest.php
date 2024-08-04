@@ -51,4 +51,3 @@ final class DocblockProseParserTest extends TestCase
         ];
     }
 }
-

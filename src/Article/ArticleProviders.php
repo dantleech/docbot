@@ -17,6 +17,7 @@ final class ArticleProviders
     public function __construct(array $providers)
     {
         foreach ($providers as $provider) {
+            /** @phpstan-ignore-next-line */
             $this->providers[$provider::for()] = $provider;
         }
     }
@@ -29,7 +30,8 @@ final class ArticleProviders
         if (!isset($this->providers[$source::class])) {
             throw new RuntimeException(sprintf(
                 'No provider available for articles source of type: `%s`, supported sources: `%s`',
-                $source::class, implode('`, `', array_keys($this->providers))
+                $source::class,
+                implode('`, `', array_keys($this->providers))
             ));
         }
 
