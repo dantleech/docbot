@@ -17,11 +17,11 @@ final class ArticleWriter
 
     public function write(RenderedArticle $article): ArticleWriterResult
     {
-        if (!file_exists(dirname($this->outputPath))) {
-            $this->filesystem->mkdir(dirname($this->outputPath));
+        $writePath = Path::join($this->outputPath, $article->filename);
+        if (!file_exists(dirname($writePath))) {
+            $this->filesystem->mkdir(dirname($writePath));
         }
 
-        $writePath = Path::join($this->outputPath, $article->filename);
         $written = file_put_contents($writePath, $article->contents);
         if (false === $written) {
             throw new RuntimeException(sprintf(

@@ -14,6 +14,21 @@ return new ClassInfoSource(
         $name = $class->reflection->getMethod('name')->invoke(null);
         $blocks = [];
 
+        $params = [
+            sprintf('Class: `%s`', $class->reflection->getName()),
+            'Parameters:'
+        ];
+        $construct = $class->reflection->getMethod('__construct');
+        foreach ($construct->getParameters() as $parameter) {
+            $params[] = sprintf(
+                '- `%s`: `%s%s`',
+                $parameter->getName(),
+                $parameter->isOptional() ? '?' : '',
+                $parameter->getType()?->__toString() ?? 'n/a'
+            );
+        }
+        $blocks[] = new TextBlock(implode("\n", $params));
+
         if ($class->reflection->getName() === Block::class) {
             return null;
         }
@@ -26,6 +41,11 @@ return new ClassInfoSource(
             ));
         }
         $blocks[] = new TextBlock($prose);
-        return new Article(sprintf('reference/%s', $name), $name, $blocks);
+
+        return new Article(
+            sprintf('reference/blocks/%s', $name),
+            sprintf('Block: `%s`', $name),
+            $blocks
+        );
     },
 );

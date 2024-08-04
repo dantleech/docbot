@@ -1,5 +1,9 @@
-core_depends_on
-===============
+Block: `core_depends_on`
+========================
+
+Class: `DTL\Docbot\Article\Block\DependsBlock`
+Parameters:
+- `id`: `string`
 
 This block is used to signifiy that the article
 depends on another article.
