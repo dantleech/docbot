@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cde3f9532c518c17a2fc21905764ca45",
+    "content-hash": "eff60d067094622467259f2b9dbca920",
     "packages": [
         {
             "name": "phpactor/container",
