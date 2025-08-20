@@ -32,6 +32,9 @@
         "psr/event-dispatcher": "^1.0",
         "symfony/error-handler": "^7.1"
     },
+    "bin": [
+        "bin/docbot"
+    ],
     "scripts": {
         "integrate": [
             "vendor/bin/phpstan analyse",
