@@ -16,6 +16,9 @@ final class ArticleExecutor implements BlockExecutor
 
     public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
+        if ($block->dependsOn !== null) {
+            $executor->execute($articles, $articles->get($block->dependsOn));
+        }
         foreach ($block->blocks as $block) {
             $executor->execute($articles, $block);
         }

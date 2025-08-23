@@ -21,6 +21,7 @@ final class ExampleExecutor implements BlockExecutor
 
     public function execute(MainBlockExecutor $executor, Articles $articles, Block $block): BlockData
     {
+        $block->executed = true;
         return new NoBlockData();
     }
 }

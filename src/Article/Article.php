@@ -20,7 +20,12 @@ final class Article implements Block
     /**
      * @param array<int,string|Block> $blocks
      */
-    public function __construct(public string $id, public string $title = 'untitled', array $blocks = [])
+    public function __construct(
+        public string $id,
+        public string $title = 'untitled',
+        array $blocks = [],
+        public ?string $dependsOn = null,
+    )
     {
         $this->blocks = array_map(function (Block|string $block) {
             if (is_string($block)) {
