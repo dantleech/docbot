@@ -4,6 +4,7 @@ namespace DTL\Docbot\Tests\Unit\Extension\Core\Console;
 
 use DTL\Docbot\Extension\Core\CoreExtension;
 use DTL\Docbot\Tests\Unit\IntegrationTestCase;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Process\Process;
 
 final class ExecuteCommandTest extends IntegrationTestCase
@@ -30,6 +31,7 @@ final class ExecuteCommandTest extends IntegrationTestCase
         $this->workspace()->createDir('docs');
         $process = $this->exec(['execute']);
         $process->mustRun();
+        $this->addToAssertionCount(1);
     }
 
     public function testNoArticlesFound(): void
