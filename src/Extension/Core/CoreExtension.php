@@ -38,6 +38,7 @@ use Symfony\Component\Console\CommandLoader\ContainerCommandLoader;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Path;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -158,7 +159,11 @@ final class CoreExtension implements Extension
         });
 
         $container->register(Workspace::class, function (Container $container) {
-            return new Workspace($container->parameter(self::PARAM_WORKSPACE_DIR)->string());
+            $workspaceDir = $container->parameter(self::PARAM_WORKSPACE_DIR)->string();
+            $workspaceDir = Path::makeAbsolute($workspaceDir, getcwd());
+            return new Workspace(
+                $workspaceDir
+            );
         });
         $container->register(ArticleWriter::class, function (Container $container) {
             return new ArticleWriter(
