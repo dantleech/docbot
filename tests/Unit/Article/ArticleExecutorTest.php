@@ -10,7 +10,7 @@ use DTL\Docbot\Tests\Unit\Article\Example\ExampleBlock;
 use DTL\Docbot\Tests\Unit\Article\Example\ExampleExecutor;
 use PHPUnit\Framework\TestCase;
 
-class ArticleExecutorTest extends TestCase
+final class ArticleExecutorTest extends TestCase
 {
     public function testExecuteDependency(): void
     {

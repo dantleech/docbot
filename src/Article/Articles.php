@@ -109,6 +109,14 @@ final class Articles implements IteratorAggregate
     }
 
     /**
+     * @param string[] $targets
+     */
+    public function only(array $targets): self
+    {
+        return new self(array_map(fn (string $target) => $this->get($target), $targets));
+    }
+
+    /**
      * @param SplObjectStorage<Article, string> $markers
      * @param list<Article> $sorted
      */
@@ -160,13 +168,5 @@ final class Articles implements IteratorAggregate
         }
 
         return $deps;
-    }
-
-    /**
-     * @param string[] $targets
-     */
-    public function only(array $targets): self
-    {
-        return new self(array_map(fn (string $target) => $this->get($target), $targets));
     }
 }

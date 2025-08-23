@@ -41,6 +41,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Filesystem\Path;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Exception;
 
 final class CoreExtension implements Extension
 {
@@ -160,7 +161,7 @@ final class CoreExtension implements Extension
 
         $container->register(Workspace::class, function (Container $container) {
             $workspaceDir = $container->parameter(self::PARAM_WORKSPACE_DIR)->string();
-            $workspaceDir = Path::makeAbsolute($workspaceDir, getcwd());
+            $workspaceDir = Path::makeAbsolute($workspaceDir, getcwd() ?: throw new Exception('Could not determine CWD'));
             return new Workspace(
                 $workspaceDir
             );

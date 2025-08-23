@@ -52,7 +52,10 @@ final class ExecuteCommand extends Command
                 'For some reason we didn\'t get an array of article titles',
             ));
         }
-        $targets = array_map(fn (mixed $target) => (string)$target, $targets);
+        $targets = array_map(function (mixed $target) {
+            assert(is_string($target));
+            return $target;
+        }, $targets);
         if (!is_string($path) && !is_null($path)) {
             throw new RuntimeException(sprintf(
                 'Path is not a string, it is; %s',

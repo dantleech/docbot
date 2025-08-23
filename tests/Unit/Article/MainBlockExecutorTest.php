@@ -65,7 +65,6 @@ final class MainBlockExecutorTest extends TestCase
         self::assertCount(2, $events);
         self::assertInstanceOf(BlockPreExecute::class, $events[0]);
         self::assertSame($exampleBlock, $events[0]->block);
-        /** @phpstan-ignore-next-line */
         self::assertInstanceOf(BlockPostExecute::class, $events[1]);
         self::assertSame($exampleBlock, $events[1]->block);
         self::assertSame($buffer->fetch($exampleBlock), $events[1]->data);

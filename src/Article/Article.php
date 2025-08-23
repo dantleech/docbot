@@ -25,8 +25,7 @@ final class Article implements Block
         public string $title = 'untitled',
         array $blocks = [],
         public ?string $dependsOn = null,
-    )
-    {
+    ) {
         $this->blocks = array_map(function (Block|string $block) {
             if (is_string($block)) {
                 return new TextBlock($block);

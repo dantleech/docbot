@@ -6,7 +6,7 @@ use DTL\Docbot\Article\Article;
 use DTL\Docbot\Article\Block;
 use PHPUnit\Framework\TestCase;
 
-class ArticleTest extends TestCase
+final class ArticleTest extends TestCase
 {
     public function testCreateTextBlocksFromStrings(): void
     {
