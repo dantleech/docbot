@@ -16,6 +16,7 @@ use DTL\Docbot\Dispatcher\EventDispatcher;
 use DTL\Docbot\Environment\Workspace;
 use DTL\Docbot\Extension\Core\Block\AssertContainsExecutor;
 use DTL\Docbot\Extension\Core\Block\CreateFileExecutor;
+use DTL\Docbot\Extension\Core\Block\HiddenExecutor;
 use DTL\Docbot\Extension\Core\Block\SectionExecutor;
 use DTL\Docbot\Extension\Core\Block\ShellExecutor;
 use DTL\Docbot\Extension\Core\Block\ShowFileExecutor;
@@ -207,6 +208,11 @@ final class CoreExtension implements Extension
         ]);
         $container->register(ArticleExecutor::class, function (Container $container) {
             return new ArticleExecutor();
+        }, [
+            self::TAG_BLOCK_EXECUTOR => [],
+        ]);
+        $container->register(HiddenExecutor::class, function (Container $container) {
+            return new HiddenExecutor();
         }, [
             self::TAG_BLOCK_EXECUTOR => [],
         ]);

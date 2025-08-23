@@ -73,9 +73,7 @@ final class ExecuteCommand extends Command
         }
         $err = $output->getErrorOutput();
 
-        if (count($targets)) {
-            $articles = $articles->only($targets);
-        }
+        $articlesToRun = count($targets) ? $articles->only($targets) : $articles;
 
         if (count($articles->ids()) === 0) {
             $err->writeln(sprintf(
@@ -88,7 +86,7 @@ final class ExecuteCommand extends Command
         $err->writeln(sprintf('Workspace:</> %s', $this->workspace->path()));
         $err->writeln('');
 
-        foreach ($articles as $article) {
+        foreach ($articlesToRun as $article) {
             $this->workspace->clean();
             $this->executor->execute($articles, $article);
         }
@@ -97,7 +95,7 @@ final class ExecuteCommand extends Command
         $err->writeln('Rendering article:');
         $err->writeln('');
 
-        foreach ($articles as $article) {
+        foreach ($articlesToRun as $article) {
             $rendered = $this->renderer->render($article);
             $result = $this->writer->write($rendered);
             $err->writeln(sprintf('Written %d bytes to %s', $result->bytesWritten, $result->path));

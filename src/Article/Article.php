@@ -22,7 +22,7 @@ final class Article implements Block
      */
     public function __construct(
         public string $id,
-        public string $title = 'untitled',
+        public ?string $title = null,
         array $blocks = [],
         public ?string $dependsOn = null,
     ) {
@@ -44,9 +44,6 @@ final class Article implements Block
      */
     public static function create(string $id, ?string $title = null, array $blocks = []): Article
     {
-        if ($title === null) {
-            $title = $id;
-        }
         return new self($id, $title, array_map(function (string|Block $block) {
             if (is_string($block)) {
                 return new TextBlock($block);
@@ -57,11 +54,16 @@ final class Article implements Block
 
     public function describe(): string
     {
-        return sprintf('article "%s" with %d steps', $this->title, count($this->blocks));
+        return sprintf('article "%s" with %d steps', $this->titleOrIdentifier(), count($this->blocks));
     }
 
     public static function name(): string
     {
         return 'article';
+    }
+
+    public function titleOrIdentifier(): string
+    {
+        return $this->title ?? $this->id;
     }
 }

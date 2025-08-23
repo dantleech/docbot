@@ -1,10 +1,12 @@
-{% block article %}
+{% block article -%}
+{% if block.title -%}
 {{ block.title }}
 {% for i in range(1,block.title|length) -%}={% endfor %}
 
 
-{% for block in block.blocks %}
-{{ render_block(block) }}
+{% endif %}
+{% for child in block.blocks %}
+{{ render_block(child) }}
 {% endfor %}
 {% endblock %}
 
@@ -21,8 +23,8 @@
 {% block shell %}
 ```shell
 $ {{ block.content }}
-{% if block.stdout and data.stdout %}{{ data.stdout }}{% endif %}
-{% if block.stderr and data.stderr %}{{ data.stderr }}{% endif %}
+{% if block.stdout and data.stdout|default(null) %}{{ data.stdout }}{% endif %}
+{% if block.stderr and data.stderr|default(null) %}{{ data.stderr }}{% endif %}
 
 ```
 {% endblock %}
@@ -31,14 +33,16 @@ $ {{ block.content }}
 {{ block.text|sub_block_tokens(block.context) }}
 {% if block.context %}{{ render_block(block.context) }}{% endif %}
 {% endblock %}
+{% block hidden %}
+{% endblock %}
 
 {% block section %}
 {{ block.title }}
 {% for i in range(1,block.title|length) -%}-{% endfor %}
 
 
-{% for block in block.blocks %}
-{{ render_block(block) }}
+{% for child in block.blocks %}
+{{ render_block(child) }}
 {%- endfor -%}
 {% endblock %}
 

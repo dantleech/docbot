@@ -4,7 +4,9 @@ namespace DTL\Docbot\Extension\Core\Renderer;
 
 use DTL\Docbot\Article\Block;
 use DTL\Docbot\Renderer\TokenReplacer;
+use RuntimeException;
 use Twig\Environment;
+use Twig\Error\RuntimeError;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -37,7 +39,16 @@ final class TwigExtension extends AbstractExtension
     private function renderBlock(Environment $env, Block $block): string
     {
         $template = $env->load(sprintf('%s.twig', $this->format));
-        return $this->renderer->render($template->unwrap(), $block);
+        try {
+            return $this->renderer->render($template->unwrap(), $block);
+        } catch (RuntimeError $error) {
+            throw new RuntimeException(sprintf(
+                'Could not render block "%s" of class `%s`: %s',
+                $block->describe(),
+                $block::class,
+                $error->getMessage()
+            ), 0, $error);
+        }
     }
 
     private function subBlockTokens(string $subject, ?object $context = null): string

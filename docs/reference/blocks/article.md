@@ -4,7 +4,7 @@ Block: `article`
 Class: `DTL\Docbot\Article\Article`
 Parameters:
 - `id`: `string`
-- `title`: `?string`
+- `title`: `??string`
 - `blocks`: `?array`
 - `dependsOn`: `??string`
 
