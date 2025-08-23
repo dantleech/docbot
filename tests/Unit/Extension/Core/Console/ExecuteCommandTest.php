@@ -4,7 +4,6 @@ namespace DTL\Docbot\Tests\Unit\Extension\Core\Console;
 
 use DTL\Docbot\Extension\Core\CoreExtension;
 use DTL\Docbot\Tests\Unit\IntegrationTestCase;
-use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Process\Process;
 
 final class ExecuteCommandTest extends IntegrationTestCase
@@ -21,6 +20,18 @@ final class ExecuteCommandTest extends IntegrationTestCase
         $process->run();
         self::assertNotEquals(0, $process->getExitCode());
         self::assertStringContainsString('You must either provide a path', $process->getErrorOutput());
+    }
+
+    public function testSpecifyArticles(): void
+    {
+        $this->putConfig([]);
+        $process = $this->exec([
+            'execute',
+            '--article=foobar',
+        ]);
+        $process->run();
+        self::assertNotEquals(0, $process->getExitCode());
+        self::assertStringContainsString('Article "foobar" not known, known articles: ""', $process->getErrorOutput());
     }
 
     public function testPathProvidedInConfig(): void

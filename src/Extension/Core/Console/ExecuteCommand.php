@@ -67,9 +67,9 @@ final class ExecuteCommand extends Command
 
         $err->writeln(sprintf('Workspace:</> %s', $this->workspace->path()));
         $err->writeln('');
-        $this->workspace->clean();
 
         foreach ($articles as $article) {
+            $this->workspace->clean();
             $this->executor->execute($articles, $article);
         }
 
