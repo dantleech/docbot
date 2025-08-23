@@ -11,12 +11,23 @@ final class Article implements Block
 {
     public int $index = 0;
 
+    /**
+     * @var list<Block>
+     */
+    public array $blocks;
+
 
     /**
-     * @param Block[] $blocks
+     * @param array<int,string|Block> $blocks
      */
-    public function __construct(public string $id, public string $title = 'untitled', public array $blocks = [])
+    public function __construct(public string $id, public string $title = 'untitled', array $blocks = [])
     {
+        $this->blocks = array_map(function (Block|string $block) {
+            if (is_string($block)) {
+                return new TextBlock($block);
+            }
+            return $block;
+        }, $blocks);
     }
 
     public function setIndex(int $index): void
