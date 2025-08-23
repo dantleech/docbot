@@ -35,12 +35,16 @@ final class AssertContainsExecutor implements BlockExecutor
         }
 
         $haystack = $data->{$block->path};
-        if (!str_contains($haystack, $block->needle)) {
+
+        foreach ($block->needle as $needle) {
+            if (str_contains($haystack, $needle)) {
+                continue;
+            }
             throw new AssertionFailed(sprintf(
                 'expected %s#%s to contain `%s` but it contained `%s`',
                 $data::class,
                 $block->path,
-                $block->needle,
+                $needle,
                 trim($haystack),
             ));
         }

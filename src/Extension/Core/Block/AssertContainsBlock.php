@@ -11,16 +11,23 @@ use DTL\Docbot\Article\Block;
  */
 final class AssertContainsBlock implements Block
 {
+    /**
+     * @var list<string>
+     */
+    public array $needle;
+
     public function __construct(
         public Block $block,
         public string $path,
-        public string $needle
+        /** @var list<string>|string */
+        string|array $needle
     ) {
+        $this->needle = (array)$needle;
     }
 
     public function describe(): string
     {
-        return sprintf('`%s` should contain %s', $this->block->describe(), $this->needle);
+        return sprintf('`%s` should contain %s', $this->block->describe(), implode(', ', $this->needle));
     }
 
     public static function name(): string
