@@ -14,12 +14,17 @@ use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(name: 'execute', description: 'Execute docs')]
 final class ExecuteCommand extends Command
 {
+    const ARG_PATH = 'path';
+    const OPT_ARTICLE = 'article';
+
+
     public function __construct(
         private ArticleFinder $finder,
         private MainBlockExecutor $executor,
@@ -32,14 +37,22 @@ final class ExecuteCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument('path', InputArgument::OPTIONAL, 'Path to tutorials');
+        $this->addArgument(self::ARG_PATH, InputArgument::OPTIONAL, 'Path to tutorials');
+        $this->addOption(self::OPT_ARTICLE, null, InputOption::VALUE_REQUIRED|InputOption::VALUE_IS_ARRAY, 'Render specify article(s)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         assert($output instanceof ConsoleOutput);
 
-        $path = $input->getArgument('path');
+        $path = $input->getArgument(self::ARG_PATH);
+        $targets = $input->getOption(self::OPT_ARTICLE);
+        if (!is_array($targets)) {
+            throw new RuntimeException(sprintf(
+                'For some reason we didn\'t get an array of article titles',
+            ));
+        }
+        $targets = array_map(fn (mixed $target) => (string)$target, $targets);
         if (!is_string($path) && !is_null($path)) {
             throw new RuntimeException(sprintf(
                 'Path is not a string, it is; %s',
@@ -56,6 +69,10 @@ final class ExecuteCommand extends Command
             ));
         }
         $err = $output->getErrorOutput();
+
+        if (count($targets)) {
+            $articles = $articles->only($targets);
+        }
 
         if (count($articles->ids()) === 0) {
             $err->writeln(sprintf(

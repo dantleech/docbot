@@ -91,7 +91,7 @@ final class Articles implements IteratorAggregate
     {
         if (!isset($this->articles[$id])) {
             throw new RuntimeException(sprintf(
-                'Unkown article: "%s", known articles: "%s"',
+                'Unknown article: "%s", known articles: "%s"',
                 $id,
                 implode('", "', array_keys($this->articles)),
             ));
@@ -160,5 +160,13 @@ final class Articles implements IteratorAggregate
         }
 
         return $deps;
+    }
+
+    /**
+     * @param string[] $targets
+     */
+    public function only(array $targets): self
+    {
+        return new self(array_map(fn (string $target) => $this->get($target), $targets));
     }
 }

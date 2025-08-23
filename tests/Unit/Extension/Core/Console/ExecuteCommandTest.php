@@ -24,14 +24,16 @@ final class ExecuteCommandTest extends IntegrationTestCase
 
     public function testSpecifyArticles(): void
     {
+        $this->workspace()->createDir('docs');
         $this->putConfig([]);
         $process = $this->exec([
             'execute',
             '--article=foobar',
+'docs',
         ]);
         $process->run();
-        self::assertNotEquals(0, $process->getExitCode());
-        self::assertStringContainsString('Article "foobar" not known, known articles: ""', $process->getErrorOutput());
+        self::assertEquals(1, $process->getExitCode());
+        self::assertStringContainsString('Unknown article: "foobar"', $process->getErrorOutput());
     }
 
     public function testPathProvidedInConfig(): void
