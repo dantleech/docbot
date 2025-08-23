@@ -24,6 +24,14 @@ final class ArticleFinder
         foreach ($finder->files() as $file) {
             $article = require $file;
 
+            if ($article instanceof Articles) {
+                $articles = array_merge(
+                    $articles,
+                    $article->toArray(),
+                );
+                continue;
+            }
+
             if ($article instanceof ArticleSource) {
                 $articles = array_merge(
                     $articles,
