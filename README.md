@@ -35,7 +35,6 @@ Usage
 -----
 
 Create the following file at `docs/example.php`:
-
 ```php
 <?php
 
@@ -61,20 +60,6 @@ return Article::create('hello_world', 'Hello World', [
 Now let's generate some docs!
 ```shell
 $ docbot execute docs
-Docbot 0.x by Daniel Leech
-Workspace: /home/daniel/www/dantleech/exedoc/workspace/workspace
-
-[         article] Article "Hello World" with 1 steps
-[         section] Section "Running a shell command" with 4 blocks
-[            text] By default the documentation operates in a clean directory. Create the file `%path%`:
-[     create_file] Creating text file at "hello_world.txt" with 12 bytes
-[            text] Now we can execute a shell command and show the contents of that file:
-[           shell] Cat hello_world.txt
-[            text] Note that the output from the shell command is shown.
-
-Rendering article:
-
-Written 417 bytes to /home/daniel/www/dantleech/exedoc/workspace/docs/hello_world.md
 
 ```
 We can view the output...
@@ -88,8 +73,6 @@ Running a shell command
 -----------------------
 
 By default the documentation operates in a clean directory. Create the file `hello_world.txt`:
-Create the following file at `hello_world.txt`:
-
 ```text
 Hello World!
 ```
@@ -149,28 +132,31 @@ return Article::create('../README', 'DTL Docbot', [
         TEXT
     ]),
     new SectionBlock('Usage', [
-        new CreateFileBlock(path: 'docs/example.php', language: 'php', content: <<<'PHP'
-            <?php
+        new TextBlock(
+            'Create the following file at `%path%`:',
+            context: new CreateFileBlock(path: 'docs/example.php', language: 'php', content: <<<'PHP'
+                <?php
 
-            use DTL\Docbot\Article\Article;
-            use DTL\Docbot\Extension\Core\Block\CreateFileBlock;
-            use DTL\Docbot\Extension\Core\Block\SectionBlock;
-            use DTL\Docbot\Extension\Core\Block\ShellBlock;
-            use DTL\Docbot\Extension\Core\Block\TextBlock;
+                use DTL\Docbot\Article\Article;
+                use DTL\Docbot\Extension\Core\Block\CreateFileBlock;
+                use DTL\Docbot\Extension\Core\Block\SectionBlock;
+                use DTL\Docbot\Extension\Core\Block\ShellBlock;
+                use DTL\Docbot\Extension\Core\Block\TextBlock;
 
-            return Article::create('hello_world', 'Hello World', [
-                new SectionBlock('Running a shell command', [
-                    new TextBlock(
-                        'By default the documentation operates in a clean directory. ' .
-                        'Create the file `%path%`:',
-                        context: new CreateFileBlock('hello_world.txt', language: 'text', content: 'Hello World!'),
-                    ),
-                    'Now we can execute a shell command and show the contents of that file:',
-                    new ShellBlock('cat hello_world.txt'),
-                    'Note that the output from the shell command is shown.',
-                ]),
-            ]);
-            PHP,
+                return Article::create('hello_world', 'Hello World', [
+                    new SectionBlock('Running a shell command', [
+                        new TextBlock(
+                            'By default the documentation operates in a clean directory. ' .
+                            'Create the file `%path%`:',
+                            context: new CreateFileBlock('hello_world.txt', language: 'text', content: 'Hello World!'),
+                        ),
+                        'Now we can execute a shell command and show the contents of that file:',
+                        new ShellBlock('cat hello_world.txt'),
+                        'Note that the output from the shell command is shown.',
+                    ]),
+                ]);
+                PHP,
+            ),
         ),
         'Now let\'s generate some docs!',
         new ShellBlock('docbot execute docs', env: [

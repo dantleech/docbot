@@ -13,8 +13,6 @@
 {% endblock %}
 
 {% block create_file %}
-Create the following file at `{{ block.path }}`:
-
 ```{{ block.language }}
 {{ block.content }}
 ```
@@ -23,8 +21,8 @@ Create the following file at `{{ block.path }}`:
 {% block shell %}
 ```shell
 $ {{ block.content }}
-{% if data.stdout %}{{ data.stdout }}{% endif %}
-{% if data.stderr %}{{ data.stderr }}{% endif %}
+{% if block.stdout and data.stdout %}{{ data.stdout }}{% endif %}
+{% if block.stderr and data.stderr %}{{ data.stderr }}{% endif %}
 
 ```
 {% endblock %}

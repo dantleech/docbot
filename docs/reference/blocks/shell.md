@@ -7,6 +7,8 @@ Parameters:
 - `assertExitCode`: `?int`
 - `cwd`: `??string`
 - `env`: `??array`
+- `stdout`: `?bool`
+- `stderr`: `?bool`
 
 This block will execute a command on the shell
 within the workspace directory.

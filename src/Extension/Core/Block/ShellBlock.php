@@ -22,6 +22,8 @@ final class ShellBlock implements Block
         public int $assertExitCode = 0,
         public ?string $cwd = null,
         public ?array $env = null,
+        public bool $stdout = true,
+        public bool $stderr = false,
     ) {
     }
 

@@ -38,28 +38,31 @@ return Article::create('../README', 'DTL Docbot', [
         TEXT
     ]),
     new SectionBlock('Usage', [
-        new CreateFileBlock(path: 'docs/example.php', language: 'php', content: <<<'PHP'
-            <?php
+        new TextBlock(
+            'Create the following file at `%path%`:',
+            context: new CreateFileBlock(path: 'docs/example.php', language: 'php', content: <<<'PHP'
+                <?php
 
-            use DTL\Docbot\Article\Article;
-            use DTL\Docbot\Extension\Core\Block\CreateFileBlock;
-            use DTL\Docbot\Extension\Core\Block\SectionBlock;
-            use DTL\Docbot\Extension\Core\Block\ShellBlock;
-            use DTL\Docbot\Extension\Core\Block\TextBlock;
+                use DTL\Docbot\Article\Article;
+                use DTL\Docbot\Extension\Core\Block\CreateFileBlock;
+                use DTL\Docbot\Extension\Core\Block\SectionBlock;
+                use DTL\Docbot\Extension\Core\Block\ShellBlock;
+                use DTL\Docbot\Extension\Core\Block\TextBlock;
 
-            return Article::create('hello_world', 'Hello World', [
-                new SectionBlock('Running a shell command', [
-                    new TextBlock(
-                        'By default the documentation operates in a clean directory. ' .
-                        'Create the file `%path%`:',
-                        context: new CreateFileBlock('hello_world.txt', language: 'text', content: 'Hello World!'),
-                    ),
-                    'Now we can execute a shell command and show the contents of that file:',
-                    new ShellBlock('cat hello_world.txt'),
-                    'Note that the output from the shell command is shown.',
-                ]),
-            ]);
-            PHP,
+                return Article::create('hello_world', 'Hello World', [
+                    new SectionBlock('Running a shell command', [
+                        new TextBlock(
+                            'By default the documentation operates in a clean directory. ' .
+                            'Create the file `%path%`:',
+                            context: new CreateFileBlock('hello_world.txt', language: 'text', content: 'Hello World!'),
+                        ),
+                        'Now we can execute a shell command and show the contents of that file:',
+                        new ShellBlock('cat hello_world.txt'),
+                        'Note that the output from the shell command is shown.',
+                    ]),
+                ]);
+                PHP,
+            ),
         ),
         'Now let\'s generate some docs!',
         new ShellBlock('docbot execute docs', env: [
