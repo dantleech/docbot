@@ -23,7 +23,7 @@
         "phpstan/phpstan": "^2.0"
     },
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "symfony/console": "^6.1|^7.1|^8.0",
         "symfony/finder": "^6.1|^7.1|^8.0",
         "phpactor/container": "^3.0",

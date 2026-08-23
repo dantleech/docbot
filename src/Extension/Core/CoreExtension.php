@@ -113,20 +113,8 @@ final class CoreExtension implements Extension
                         $serviceId
                     ));
                 }
-                if (method_exists($serviceId, 'getDefaultName')) {
-                    /** @var string|null $name */
-                    $name = $serviceId::getDefaultName();
-                    if (null === $name) {
-                        throw new RuntimeException(sprintf(
-                            'Console command %s must use the `AsCommand` attribute',
-                            $serviceId
-                        ));
-                    }
-                    $map[$name] = $serviceId;
-                    continue;
-                }
-
-                $attribute = (new ReflectionClass($serviceId)->getAttributes(AsCommand::class)[0] ?? null)?->newInstance();
+                $attributeReflection = (new ReflectionClass($serviceId)->getAttributes(AsCommand::class)[0] ?? null);
+                $attribute = $attributeReflection ? $attributeReflection->newInstance() : null;
                 if (null === $attribute) {
                     throw new RuntimeException(sprintf(
                         'Console command %s must use the `AsCommand` attribute',
