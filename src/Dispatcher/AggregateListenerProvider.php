@@ -22,6 +22,7 @@ final class AggregateListenerProvider implements ListenerProviderInterface
     public function getListenersForEvent($event): iterable
     {
         foreach ($this->providers as $provider) {
+            /** @var ListenerProviderInterface $provider */
             foreach ($provider->getListenersForEvent($event) as $provider) {
                 yield $provider;
             }

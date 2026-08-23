@@ -34,6 +34,7 @@ final class AssertContainsExecutor implements BlockExecutor
             ));
         }
 
+        /** @var string */
         $haystack = $data->{$block->path};
 
         foreach ($block->needle as $needle) {

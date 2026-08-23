@@ -34,6 +34,7 @@ use Phpactor\MapResolver\Resolver;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\EventDispatcher\ListenerProviderInterface;
 use RuntimeException;
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\CommandLoader\CommandLoaderInterface;
 use Symfony\Component\Console\CommandLoader\ContainerCommandLoader;
 use Symfony\Component\Console\Command\Command;
@@ -43,6 +44,7 @@ use Symfony\Component\Filesystem\Path;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use Exception;
+use ReflectionClass;
 
 final class CoreExtension implements Extension
 {
@@ -111,14 +113,15 @@ final class CoreExtension implements Extension
                         $serviceId
                     ));
                 }
-                $name = $serviceId::getDefaultName();
-                if (null === $name) {
+                $attributeReflection = (new ReflectionClass($serviceId))->getAttributes(AsCommand::class)[0] ?? null;
+                $attribute = $attributeReflection ? $attributeReflection->newInstance() : null;
+                if (null === $attribute) {
                     throw new RuntimeException(sprintf(
                         'Console command %s must use the `AsCommand` attribute',
                         $serviceId
                     ));
                 }
-                $map[$name] = $serviceId;
+                $map[$attribute->name] = $serviceId;
             }
             return new ContainerCommandLoader($container, $map);
         });

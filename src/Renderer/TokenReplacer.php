@@ -25,6 +25,7 @@ final class TokenReplacer
             ));
         }
 
+        /** @phpstan-ignore argument.type */
         return str_replace($matches[0], array_map(function (string $property) use ($context) {
             return $context->$property;
         }, $matches[1]), $subject);

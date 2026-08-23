@@ -26,12 +26,12 @@ final class Article implements Block
         array $blocks = [],
         public ?string $dependsOn = null,
     ) {
-        $this->blocks = array_map(function (Block|string $block) {
+        $this->blocks = array_values(array_map(function (Block|string $block) {
             if (is_string($block)) {
                 return new TextBlock($block);
             }
             return $block;
-        }, $blocks);
+        }, $blocks));
     }
 
     public function setIndex(int $index): void
