@@ -16,10 +16,10 @@ final class AssertContainsBlock implements Block
      */
     public array $needle;
 
+    /** @param list<string>|string $needle */
     public function __construct(
         public Block $block,
         public string $path,
-        /** @var list<string>|string */
         string|array $needle
     ) {
         $this->needle = (array)$needle;

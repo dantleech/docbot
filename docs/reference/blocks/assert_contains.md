@@ -5,7 +5,7 @@ Class: `DTL\Docbot\Extension\Core\Block\AssertContainsBlock`
 Parameters:
 - `block`: `DTL\Docbot\Article\Block`
 - `path`: `string`
-- `needle`: `string`
+- `needle`: `array|string`
 
 Assert that the value at the given path on the given blocks _output_ contains a string.
 

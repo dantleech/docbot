@@ -22,6 +22,7 @@ Use composer to require the latest Symfony Console component:
 
 ```shell
 $ composer require symfony/console
+No security vulnerability advisories found.
 
 ```
 
@@ -59,7 +60,7 @@ use Acme\Console\HelloCommand;
 require __DIR__ . '/../vendor/autoload.php';
 
 $application = new Application();
-$application->add(new HelloCommand());
+$application->addCommand(new HelloCommand());
 $application->run();
 ```
 

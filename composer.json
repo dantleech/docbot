@@ -37,7 +37,7 @@
     ],
     "scripts": {
         "integrate": [
-            "vendor/bin/phpstan analyse",
+            "vendor/bin/phpstan analyse --memory-limit=-1",
             "vendor/bin/php-cs-fixer fix",
             "vendor/bin/phpunit",
             "bin/docbot execute docs"

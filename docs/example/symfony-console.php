@@ -64,7 +64,7 @@ return Article::create('symfony_console', 'Creating a Console Application', [
             require __DIR__ . '/../vendor/autoload.php';
 
             $application = new Application();
-            $application->add(new HelloCommand());
+            $application->addCommand(new HelloCommand());
             $application->run();
             PHP
     ),

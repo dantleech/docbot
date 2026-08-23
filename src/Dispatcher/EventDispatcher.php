@@ -30,6 +30,8 @@ final class EventDispatcher implements EventDispatcherInterface
             return $event;
         }
 
+        /**
+         * @var callable(object):void $listener */
         foreach ($this->listenerProvider->getListenersForEvent($event) as $listener) {
             $listener($event);
 

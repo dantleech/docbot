@@ -52,7 +52,8 @@ final class MainBlockExecutorTest extends TestCase
         $dispatcher = new EventDispatcher(new AggregateListenerProvider([
             new ClosureListenerProvider(function (object $event) use (&$events): Generator {
                 $events[] = $event;
-                yield function (): void {};
+                yield function (): void {
+                };
             }),
         ]));
         $exampleBlock = new ExampleBlock();
