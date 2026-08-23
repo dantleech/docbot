@@ -77,7 +77,7 @@ jobs:
                 name: "Run PHPUnit"
                 run: "vendor/bin/phpunit"
     docbot:
-        name: "PHPUnit (${{ matrix.php-version }})"
+        name: "Docbot (${{ matrix.php-version }})"
 
         runs-on: "ubuntu-latest"
 

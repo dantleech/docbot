@@ -113,7 +113,7 @@ final class CoreExtension implements Extension
                         $serviceId
                     ));
                 }
-                $attributeReflection = (new ReflectionClass($serviceId)->getAttributes(AsCommand::class)[0] ?? null);
+                $attributeReflection = (new ReflectionClass($serviceId))->getAttributes(AsCommand::class)[0] ?? null;
                 $attribute = $attributeReflection ? $attributeReflection->newInstance() : null;
                 if (null === $attribute) {
                     throw new RuntimeException(sprintf(
